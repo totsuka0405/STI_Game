@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ec603c479a4374ca0c2c2bcb7e17ba, type: 3}
   m_Name: Item List Empty
   m_EditorClassIdentifier: 
-  itemList: []
+  itemList:
+  - type: 0
+    sprite: {fileID: 21300000, guid: a9c96ca661cc4e242a598edec6d295e0, type: 3}
