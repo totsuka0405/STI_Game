@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +21,7 @@ public class CharacterMove : MonoBehaviour
 
     void Update()
     {
-        /*
+        
         if (GameManager.instance.IsGameStarted())
         {
             if (!isGameStarted)
@@ -30,14 +30,14 @@ public class CharacterMove : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
-        }*/
-        View();
-        Moves();
+            View();
+            Moves();
+        }
     }
 
     void Moves()
     {
-        // ƒvƒŒƒCƒ„[‚ÌˆÚ“®
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -48,7 +48,7 @@ public class CharacterMove : MonoBehaviour
 
         rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
 
-        // “ü—Í‚ğs‚Á‚Ä‚¢‚È‚¢ê‡A‰ñ“]‚Ì—Í‚ğ0‚É‚·‚é
+        // å…¥åŠ›ã‚’è¡Œã£ã¦ã„ãªã„å ´åˆã€å›è»¢ã®åŠ›ã‚’0ã«ã™ã‚‹
         if (moveHorizontal == 0 && moveVertical == 0)
         {
             rb.angularVelocity = Vector3.zero;
@@ -57,19 +57,19 @@ public class CharacterMove : MonoBehaviour
 
     void View()
     {
-        // ƒvƒŒƒCƒ„[‚Ì‹“_‘€ì
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¦–ç‚¹æ“ä½œ
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         verticalLookRotation += mouseY;
         verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
 
-        // X²‚ÆZ²‚Ì‰ñ“]‚ğŒÅ’è
+        // Xè»¸ã¨Zè»¸ã®å›è»¢ã‚’å›ºå®š
         transform.Rotate(Vector3.up * mouseX);
         playerCamera.transform.localEulerAngles = new Vector3(-verticalLookRotation, 0f, 0f);
         transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
 
-        // ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌƒƒbƒN/‰ğœ
+        // ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®ãƒ­ãƒƒã‚¯/è§£é™¤
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
