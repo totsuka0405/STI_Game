@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance { get; private set; }
     public ShakeHouse shakeHouse;
 
     private bool gameStarted = false;
-    private float gameTime = 0f;
+    public float gameTime = 0f;
     private bool isErath = false;
 
     void Awake()
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         {
             gameTime += Time.deltaTime;
 
-            if (!isErath && gameTime >= 5f)
+            if (!isErath && gameTime >= 180f)
             {
                 Debug.Log("地震だよ");
                 shakeHouse.StartShake();

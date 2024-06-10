@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 97669927798610413}
   m_Layer: 0
   m_Name: bat
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793587583126221474}
-  m_LocalRotation: {x: -0.095305696, y: -0.017910315, z: 0.18382145, w: 0.9781645}
-  m_LocalPosition: {x: -6.514, y: 1.416, z: -5.168}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 7, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 2025743941740490138}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -10.362, y: -4.085, z: 21.657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-4243463164978591782
 MonoBehaviour:
   m_ObjectHideFlags: 0

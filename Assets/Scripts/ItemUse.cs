@@ -2,7 +2,7 @@
 
 public class ItemUse : MonoBehaviour
 {
-    public float rayDistance = 5f;
+    public float rayDistance = 8f;
 
     void Update()
     {
