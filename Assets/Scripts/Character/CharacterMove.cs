@@ -9,12 +9,6 @@ public class CharacterMove : MonoBehaviour
     
     public float mouseSensitivity = 2f;
     public Camera playerCamera;
-    
-    // AddForce関連
-    /*
-    public float maxSpeed = 10f; // 一定の速度
-    public float stopForce = 10f; // 停止時にかける力
-    */
 
     private Rigidbody rb;
     private float verticalLookRotation;
@@ -48,61 +42,14 @@ public class CharacterMove : MonoBehaviour
         }
     }
 
-    /*
-    /// <summary>
-    /// AddForceで移動
-    /// </summary>
-    void Moves()
-    {
-        // プレイヤーの移動
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
-
-        Vector3 moveDirection = new Vector3(moveHorizontal, 0f, moveVertical).normalized;
-        Vector3 moveForce = transform.TransformDirection(moveDirection) * currentSpeed;
-
-        // 入力がある場合は力を加える
-        if (moveDirection.magnitude > 0)
-        {
-            rb.AddForce(moveForce, ForceMode.Acceleration);
-        }
-        else
-        {
-            // 入力がない場合は速度を減衰させる
-            Vector3 velocity = rb.velocity;
-            Vector3 horizontalVelocity = new Vector3(velocity.x, 0, velocity.z);
-            Vector3 stopForceVector = -horizontalVelocity * stopForce;
-            rb.AddForce(stopForceVector, ForceMode.Acceleration);
-
-            // 一定の速度を超えたら速度を制限する
-            if (horizontalVelocity.magnitude > maxSpeed)
-            {
-                rb.velocity = new Vector3(
-                    Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed),
-                    rb.velocity.y,
-                    Mathf.Clamp(rb.velocity.z, -maxSpeed, maxSpeed)
-                );
-            }
-        }
-
-        // 入力を行っていない場合、回転の力を0にする
-        if (moveHorizontal == 0 && moveVertical == 0)
-        {
-            rb.angularVelocity = Vector3.zero;
-        }
-    }
-    */
-
     /// <summary>
     /// velocityによる移動
     /// </summary>
     void Moves()
     {
         // プレイヤーの移動
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxisRaw("Horizontal");
+        float moveVertical = Input.GetAxisRaw("Vertical");
 
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
 

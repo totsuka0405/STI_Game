@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8739960725175516784}
   - component: {fileID: 7382733036522190841}
   - component: {fileID: 8938136136726975162}
-  - component: {fileID: 351851160919815262}
   m_Layer: 0
   m_Name: father room door
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &351851160919815262
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2280368246202005}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.05544497, y: 0.2342825, z: 0.1333413}
-  m_Center: {x: 0.00000024773192, y: 0.027584985, z: -0.000000029802322}
 --- !u!1 &148436321563047233
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,9 +480,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1905141903072920546}
+  - component: {fileID: 4660933129202367796}
+  - component: {fileID: 1124730018756302174}
+  - component: {fileID: 1597097698982196273}
   m_Layer: 0
   m_Name: Rotate Pos
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -517,6 +506,49 @@ Transform:
   m_Father: {fileID: 5388850442499418092}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4660933129202367796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850330005216143899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7d393da8eada34d873bd6cf4824647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animations: {fileID: 1124730018756302174}
+--- !u!111 &1124730018756302174
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850330005216143899}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: b286d4711372d6b49b9d299ae3379b6c, type: 2}
+  - {fileID: 7400000, guid: 8df0b77e8d7792c43bb104812379b524, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!65 &1597097698982196273
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850330005216143899}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13, y: 0.22, z: 0.03}
+  m_Center: {x: -0.07, y: 0.12, z: -0.01}
 --- !u!1 &996752821324627377
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,9 +3329,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5507778432536468329}
+  - component: {fileID: 2227935349289665484}
+  - component: {fileID: 5205864883838758457}
+  - component: {fileID: 7844746457265209837}
   m_Layer: 0
   m_Name: Rotate Pos
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3320,6 +3355,49 @@ Transform:
   m_Father: {fileID: 68026323456332749}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &2227935349289665484
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268357361948335557}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: b286d4711372d6b49b9d299ae3379b6c, type: 2}
+  - {fileID: 7400000, guid: 8df0b77e8d7792c43bb104812379b524, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!65 &5205864883838758457
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268357361948335557}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13, y: 0.22, z: 0.03}
+  m_Center: {x: -0.07, y: 0.12, z: 0.01}
+--- !u!114 &7844746457265209837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268357361948335557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7d393da8eada34d873bd6cf4824647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animations: {fileID: 2227935349289665484}
 --- !u!1 &5550133180185659793
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,7 +3543,6 @@ GameObject:
   - component: {fileID: 9000867107135061206}
   - component: {fileID: 3030210005234056466}
   - component: {fileID: 2273973903675389309}
-  - component: {fileID: 215614949940314234}
   m_Layer: 0
   m_Name: My room door
   m_TagString: Untagged
@@ -3538,19 +3615,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &215614949940314234
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5717675879011109857}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.05544497, y: 0.2342825, z: 0.1333413}
-  m_Center: {x: 0.00000024773192, y: 0.027584985, z: -0.000000029802322}
 --- !u!1 &5745580661060564187
 GameObject:
   m_ObjectHideFlags: 0
@@ -4495,7 +4559,6 @@ GameObject:
   - component: {fileID: 819017276539163253}
   - component: {fileID: 2289958431938710483}
   - component: {fileID: 1969248898468786817}
-  - component: {fileID: 7130729166065999623}
   m_Layer: 0
   m_Name: Mother room door
   m_TagString: Untagged
@@ -4568,19 +4631,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7130729166065999623
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7136257708760851772}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.06166751, y: 0.24069385, z: 0.13334127}
-  m_Center: {x: 0, y: 0, z: 0.000000018626451}
 --- !u!1 &7508174411825838852
 GameObject:
   m_ObjectHideFlags: 0
@@ -4853,9 +4903,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2978428082231977512}
+  - component: {fileID: 2411749029048549992}
+  - component: {fileID: 7774466976830313280}
+  - component: {fileID: 1038110642883844699}
   m_Layer: 0
   m_Name: Rotate Pos
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4876,6 +4929,49 @@ Transform:
   m_Father: {fileID: 3191017634133084317}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &2411749029048549992
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063086772393449471}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: b286d4711372d6b49b9d299ae3379b6c, type: 2}
+  - {fileID: 7400000, guid: 8df0b77e8d7792c43bb104812379b524, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &7774466976830313280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063086772393449471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7d393da8eada34d873bd6cf4824647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animations: {fileID: 2411749029048549992}
+--- !u!65 &1038110642883844699
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063086772393449471}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13, y: 0.22, z: 0.03}
+  m_Center: {x: 0.07, y: 0.12, z: 0.01}
 --- !u!1 &8080516703787066187
 GameObject:
   m_ObjectHideFlags: 0

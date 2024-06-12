@@ -22,6 +22,19 @@ public class ItemUse : MonoBehaviour
                         pickupObj.OnClickObj();
                     }
                 }
+                else if (hit.collider.CompareTag("Door"))
+                {
+                    Door door = hit.collider.GetComponentInParent<Door>();
+                    if (door != null)
+                    {
+                        door.ToggleDoor();
+                    }
+                }
+                else if (hit.collider.CompareTag("cap"))
+                {
+                    GameManager.instance.isFire = false;
+                    Debug.Log("もとせんとじたよ");
+                }
             }
         }
     }
