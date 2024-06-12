@@ -6,6 +6,7 @@ public class CharacterMove : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float sprintSpeed = 10f;
+    
     public float mouseSensitivity = 2f;
     public Camera playerCamera;
 
@@ -31,24 +32,40 @@ public class CharacterMove : MonoBehaviour
                 Cursor.visible = false;
             }
             View();
+        }
+    }
+    void FixedUpdate()
+    {
+        if (isGameStarted)
+        {
             Moves();
         }
     }
 
+    /// <summary>
+    /// velocityによる移動
+    /// </summary>
     void Moves()
     {
         // プレイヤーの移動
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxisRaw("Horizontal");
+        float moveVertical = Input.GetAxisRaw("Vertical");
 
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
 
         Vector3 moveDirection = new Vector3(moveHorizontal, 0f, moveVertical).normalized;
         Vector3 moveVelocity = transform.TransformDirection(moveDirection) * currentSpeed;
 
-        rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
+        if (moveDirection.magnitude > 0)
+        {
+            rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
+        }
+        else
+        {
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        }
 
-        // 入力を行っていない場合、回転の力を0にする
+        // 入力を行っていない場合、回転の力と移動の力を0にする
         if (moveHorizontal == 0 && moveVertical == 0)
         {
             rb.angularVelocity = Vector3.zero;

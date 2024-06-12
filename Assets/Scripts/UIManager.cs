@@ -7,7 +7,9 @@ public class UIManager : MonoBehaviour
 {
     public GameObject startUI;
     public RectTransform itemBoxUI;
-    private bool isPositionAtZero = true;
+    public GameObject crossHair;
+    private bool isPositionAtZero = false;
+    private bool isOpenCrossHair = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,12 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.instance.IsGameStarted())
         {
+            if (!isOpenCrossHair)
+            {
+                OpenCrossHair();
+                isOpenCrossHair = true;
+            }
+
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 TogglePosition();
@@ -28,17 +36,26 @@ public class UIManager : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// ゲーム開始ボタン
+    /// </summary>
     public void OnStartGameButtonClicked()
     {
         startUI.SetActive(false);
         GameManager.instance.StartGame();
     }
 
+    /// <summary>
+    /// ゲーム終了ボタン
+    /// </summary>
     public void OnEndGameButtonClicked()
     {
         GameManager.instance.QuitGame();
     }
 
+    /// <summary>
+    /// アイテムボックスの表示非表示
+    /// </summary>
     void TogglePosition()
     {
         if (isPositionAtZero)
@@ -51,5 +68,13 @@ public class UIManager : MonoBehaviour
         }
 
         isPositionAtZero = !isPositionAtZero;
+    }
+
+    /// <summary>
+    /// カメラの中心点の表示
+    /// </summary>
+    void OpenCrossHair()
+    {
+        crossHair.SetActive(true);
     }
 }

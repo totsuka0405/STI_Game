@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PickupObj : MonoBehaviour
 {
-    // [SerializeField] Item item;
     [SerializeField] Item.ItemType itemType;
     Item item;
 

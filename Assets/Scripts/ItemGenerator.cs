@@ -23,7 +23,7 @@ public class ItemGenerator : MonoBehaviour
         {
             if(item.type == type)
             {
-                return new Item(item.type, item.sprite);
+                return new Item(item.type, item.sprite, item.collider);
             }
         }
         return null;

@@ -9,15 +9,22 @@ public class Item
         bat,
         hand_light,
         phone,
+        stopper,
     }
 
     public ItemType type;       // 種類
     public Sprite sprite;       // 画像
+    public Collider collider;
+    public bool isHand;
+    public bool isUse;
 
-    public Item(ItemType type, Sprite sprite)
+    public Item(ItemType type, Sprite sprite, Collider collider)
     {
         this.type = type;
         this.sprite = sprite;
+        this.collider = collider;
+        isHand = false;
+        isUse = false;
     }
 
 }
