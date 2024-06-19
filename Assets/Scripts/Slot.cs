@@ -36,4 +36,21 @@ public class Slot : MonoBehaviour
     {
         image.sprite = item.sprite;
     }
+    public Item GetItem()
+    {
+        return slotitem;
+    }
+
+    public void Highlight(bool highlight)
+    {
+        // ハイライトのためのエフェクトを追加します（例えば、色を変更）
+        if (highlight)
+        {
+            image.color = Color.yellow;  // ハイライト色に変更
+        }
+        else
+        {
+            image.color = Color.white;   // 通常色に戻す
+        }
+    }
 }
