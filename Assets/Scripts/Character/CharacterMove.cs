@@ -4,20 +4,43 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
+    public static CharacterMove instance;
+
+    [SerializeField] Transform handTransform; // アイテムを表示する手の位置
+
+    private GameObject currentItemInstance;
+
     public float moveSpeed = 5f;
     public float sprintSpeed = 10f;
     
     public float mouseSensitivity = 2f;
     public Camera playerCamera;
 
+    private ItemBox itemBox;
+
     private Rigidbody rb;
     private float verticalLookRotation;
 
     private bool isGameStarted = false;
 
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        itemBox = ItemBox.instance;
+        if(itemBox == null)
+        {
+            Debug.LogError("ItemBox instance not found.");
+        }
     }
 
     void Update()
@@ -32,6 +55,7 @@ public class CharacterMove : MonoBehaviour
                 Cursor.visible = false;
             }
             View();
+            ItemChange();
         }
     }
     void FixedUpdate()
@@ -39,6 +63,7 @@ public class CharacterMove : MonoBehaviour
         if (isGameStarted)
         {
             Moves();
+           
         }
     }
 
@@ -91,6 +116,41 @@ public class CharacterMove : MonoBehaviour
         {
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = !Cursor.visible;
+        }
+    }
+
+    void ItemChange()
+    {
+        // キー入力によるアイテム切り替え
+        if (Input.GetKeyDown(KeyCode.Alpha1)) ItemBox.instance.SelectItem(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) ItemBox.instance.SelectItem(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) ItemBox.instance.SelectItem(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) ItemBox.instance.SelectItem(3);
+
+        // マウスホイールによるアイテム切り替え
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0)
+        {
+            int direction = scroll > 0 ? 1 : -1;
+            int newIndex = ItemBox.instance.GetNextIndex(direction);
+            ItemBox.instance.SelectItem(newIndex);
+        }
+    }
+
+    public void DisplaySelectedItemInHand(Item selectedItem)
+    {
+        // 既に手元にアイテムがある場合は削除
+        if (currentItemInstance != null)
+        {
+            Destroy(currentItemInstance);
+        }
+
+        // 新しいアイテムを手元に表示
+        if (selectedItem != null && selectedItem.itemPrefab != null)
+        {
+            currentItemInstance = Instantiate(selectedItem.itemPrefab, handTransform);
+            currentItemInstance.transform.localPosition = selectedItem.itemPrefab.transform.localPosition;
+            currentItemInstance.transform.localRotation = selectedItem.itemPrefab.transform.localRotation;
         }
     }
 }

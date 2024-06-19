@@ -15,21 +15,13 @@ MonoBehaviour:
   itemList:
   - type: 0
     sprite: {fileID: 21300000, guid: a9c96ca661cc4e242a598edec6d295e0, type: 3}
-    collider: {fileID: 97669927798610413, guid: 5ea8c8e3b80ee2049a8ec51a0bad9a83, type: 3}
-    isHand: 0
-    isUse: 0
+    itemPrefab: {fileID: 2515214578565844026, guid: e744b26aa63180141b07f5d3627aed92, type: 3}
   - type: 1
     sprite: {fileID: 21300000, guid: 1af50a2c9840a6c44b81d275d2f5b6e9, type: 3}
-    collider: {fileID: 4070185043155267676, guid: 8eb02ee58e9f660428f0cbe51a9c3cbc, type: 3}
-    isHand: 0
-    isUse: 0
+    itemPrefab: {fileID: 4214182823342938176, guid: 4fb625adc1737fa4bba1b1004b1acd5c, type: 3}
   - type: 2
     sprite: {fileID: 21300000, guid: cb3cc68e6b6b4fa42b6684e2645b0dc7, type: 3}
-    collider: {fileID: 1810594533340572546, guid: f7f45b0b68d47c34989b41465b071c96, type: 3}
-    isHand: 0
-    isUse: 0
+    itemPrefab: {fileID: 8933472578899278077, guid: ab0fca947d8313e4cb69c86634d52bfe, type: 3}
   - type: 3
     sprite: {fileID: 21300000, guid: 1f837c7d78a21d34da28e21678534020, type: 3}
-    collider: {fileID: 110976892216756516, guid: fdd159fd055d59f4ea8f369327650367, type: 3}
-    isHand: 0
-    isUse: 0
+    itemPrefab: {fileID: 4319294681758876939, guid: 70d55466c5ea79e47851ae4c8f09fe70, type: 3}
