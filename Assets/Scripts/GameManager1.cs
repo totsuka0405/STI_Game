@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Fire : MonoBehaviour
+public class GameManager1 : MonoBehaviour
 {
+    public float gameOverTime = 3.0f; // ゲームオーバーまでの時間
+    private float elapsedTime = 0.0f;
+    private bool gameOver = false;
 
     // GameOverManagerのインスタンスを保持する
     private GameOverManager gameOverManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         // GameOverManagerのインスタンスを取得
@@ -19,12 +22,16 @@ public class Fire : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void Update()
     {
-        // プレイヤーがFireのColliderに触れたとき
-        if (other.CompareTag("Player"))
+        if (!gameOver)
         {
-            GameOver();
+            elapsedTime += Time.deltaTime;
+
+            if (elapsedTime >= gameOverTime)
+            {
+                GameOver();
+            }
         }
     }
 
@@ -32,12 +39,12 @@ public class Fire : MonoBehaviour
     {
         // ゲームオーバーの処理をここに書く
         Debug.Log("Game Over");
-        //gameOver = true;
+        gameOver = true;
 
         if (gameOverManager != null)
         {
             // GameOverManagerのGameOverメソッドを呼び出す
-            gameOverManager.GameOver(1); //炎に包まれた
+            gameOverManager.GameOver(0); // 時間切れ
         }
 
         // 例えばシーンを再読み込みするなどの処理を行う
