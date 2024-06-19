@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fire : MonoBehaviour
+public class Car : MonoBehaviour
 {
-
     // GameOverManagerのインスタンスを保持する
     private GameOverManager gameOverManager;
 
@@ -37,7 +36,7 @@ public class Fire : MonoBehaviour
         if (gameOverManager != null)
         {
             // GameOverManagerのGameOverメソッドを呼び出す
-            gameOverManager.GameOver(1); //炎に包まれた
+            gameOverManager.GameOver(2); //轢かれた
         }
 
         // 例えばシーンを再読み込みするなどの処理を行う
