@@ -13,6 +13,9 @@
 # Ignore the store assets directory
 [Aa]ssets/StoreAssets/
 [Aa]ssets/StoreAssets.meta
+[Aa]ssets/Textures/
+[Aa]ssets/Textures.meta
+
 
 # TextMesh Pro files
 [Aa]ssets/TextMesh*Pro/
