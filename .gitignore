@@ -10,6 +10,9 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+# Ignore the store assets directory
+/StoreAssets/
+
 # TextMesh Pro files
 [Aa]ssets/TextMesh*Pro/
 [Aa]ssets/TextMesh*Pro.meta
