@@ -10,9 +10,29 @@ public class GameManager : MonoBehaviour
     public GameObject fire;
 
     private bool gameStarted = false;
+
+    [Header("ゲーム内時間計測")]
     public float gameTime = 0f;
-    private bool isErath = false;
-    public bool isFire = true;
+    [Header("地震発生時間：1回目")]
+    public float shakeStartTimeFirst = 180f;
+    [Header("地震発生時間：2回目")]
+    public float shakeStartTimeSeconds = 300f;
+    [Header("火災発生時間")]
+    public float fireStartTime = 200f;
+
+    [Header("地震の全体時間：1回目")]
+    public float earthquaketime_First = 20f;
+    [Header("地震の全体時間：2回目")]
+    public float earthquaketime_Seconds = 60f;
+    [Header("地震の大きさ：1回目")]
+    public float earthquakePower_First = 0.5f;
+    [Header("地震の大きさ：2回目")]
+    public float earthquakePower_Seconds = 1.0f;
+
+    // 災害イベントフラグ
+    private bool isFirstErath = false;       // 地震
+    private bool isSecondEarth = false;
+    public bool isFire = true;          // 火事
 
 
     void Awake()
@@ -34,15 +54,15 @@ public class GameManager : MonoBehaviour
         {
             gameTime += Time.deltaTime;
             
-            if (!isErath && gameTime >= 30f)
+            if (!isFirstErath && gameTime >= shakeStartTimeFirst)
             {
                 Debug.Log("地震だよ");
-                shakeHouse.StartShake();
-                isErath = true;
+                shakeHouse.AddEarthquakeEvent(earthquaketime_First, earthquakePower_First);
+                isFirstErath = true;
                 
             }
 
-            if (gameTime >= 35f)
+            if (gameTime >= fireStartTime)
             {
                 if (!isFire)
                 {
@@ -53,7 +73,15 @@ public class GameManager : MonoBehaviour
                     FireOpen();
                 }
             }
-            
+
+            if (!isSecondEarth && gameTime >= shakeStartTimeSeconds)
+            {
+                Debug.Log("地震だよ");
+                shakeHouse.AddEarthquakeEvent(earthquaketime_Seconds, earthquakePower_Seconds);
+                isSecondEarth = true;
+
+            }
+
         }
     }
 
