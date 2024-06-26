@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class ShakeHouse : MonoBehaviour
@@ -17,16 +18,18 @@ public class ShakeHouse : MonoBehaviour
 
     public float dampingSpeed = 1.0f; // 揺れの減衰スピード
 
-    private Vector3 initialPosition;
+    private Rigidbody rb;
     private bool isShaking = false;
     private float shakeTimeRemaining;
     private float currentMaxShakeMagnitude;
-    private float shakeOffsetX;
     private int currentEventIndex = 0;
     private List<EarthquakeEvent> earthquakeEvents = new List<EarthquakeEvent>();
+    private Vector3 initialPosition;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
         initialPosition = transform.position;
     }
 
@@ -51,16 +54,23 @@ public class ShakeHouse : MonoBehaviour
                 shakeMagnitude = Mathf.Lerp(currentMaxShakeMagnitude, 0, (elapsed - 2 * halfDuration) / halfDuration);
             }
 
-            shakeOffsetX = Mathf.Sin(Time.time * 20f) * shakeMagnitude;
-            Vector3 shakeOffset = new Vector3(shakeOffsetX, 0f, 0f);
-            transform.position = initialPosition + shakeOffset;
+            // 周波数と振幅の調整
+            float shakeFrequency = 20f; // 振動の周波数
+            float shakeAmplitude = 3.0f; // 振動の振幅
+
+            float shakeOffsetX = Mathf.Sin(Time.time * shakeFrequency * 1.0f) * shakeMagnitude * shakeAmplitude;
+            float shakeOffsetZ = Mathf.Cos(Time.time * shakeFrequency * 0.5f) * shakeMagnitude * shakeAmplitude;
+            Vector3 shakeForce = new Vector3(shakeOffsetX, 0f, shakeOffsetZ);
+
+            rb.AddForce(shakeForce, ForceMode.Impulse);
 
             shakeTimeRemaining -= Time.deltaTime * dampingSpeed;
         }
         else if (shakeTimeRemaining <= 0 && isShaking)
         {
             isShaking = false;
-            transform.position = initialPosition;
+            rb.velocity = Vector3.zero; // 加わっている力を0にする
+            rb.angularVelocity = Vector3.zero;
 
             currentEventIndex++;
             if (currentEventIndex < earthquakeEvents.Count)
@@ -69,6 +79,8 @@ public class ShakeHouse : MonoBehaviour
             }
         }
     }
+
+   
 
     public void AddEarthquakeEvent(float duration, float maxMagnitude)
     {
