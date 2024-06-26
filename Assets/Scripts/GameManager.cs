@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("地震だよ");
                 shakeHouse.AddEarthquakeEvent(earthquaketime_First, earthquakePower_First);
+                shakeHouse.StartShake();
                 isFirstErath = true;
                 
             }
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("地震だよ");
                 shakeHouse.AddEarthquakeEvent(earthquaketime_Seconds, earthquakePower_Seconds);
+                shakeHouse.StartShake();
                 isSecondEarth = true;
 
             }
