@@ -8,6 +8,13 @@ public class UIManager : MonoBehaviour
     public GameObject startUI;
     public RectTransform itemBoxUI;
     public GameObject crossHair;
+    public GameObject controlUI;
+    public GameObject dieUI;
+    public GameObject fireDie;
+    public GameObject earthDie;
+
+    public float closeControlUITime = 7.0f;
+
     private bool isPositionAtZero = false;
     private bool isOpenCrossHair = false;
 
@@ -15,6 +22,8 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         startUI.SetActive(true);
+        controlUI.SetActive(false);
+        dieUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,6 +31,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.instance.IsGameStarted())
         {
+
             if (!isOpenCrossHair)
             {
                 OpenCrossHair();
@@ -32,6 +42,15 @@ public class UIManager : MonoBehaviour
             {
                 TogglePosition();
             }
+
+            controlUI.SetActive(true);
+
+            if(GameManager.instance.gameTime >= closeControlUITime)
+            {
+                controlUI.SetActive(false);
+            }
+
+            DieReason();
         }
         
     }
@@ -76,5 +95,22 @@ public class UIManager : MonoBehaviour
     void OpenCrossHair()
     {
         crossHair.SetActive(true);
+    }
+
+
+    void DieReason()
+    {
+        if(GameManager.instance.isPlayerDead == true)
+        {
+            dieUI.SetActive(true);
+            if (GameManager.instance.isFireDie)
+            {
+                fireDie.SetActive(true);
+            }
+            else if (GameManager.instance.isEarthDie)
+            {
+                earthDie.SetActive(true);
+            }
+        }
     }
 }

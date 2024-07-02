@@ -29,10 +29,20 @@ public class GameManager : MonoBehaviour
     [Header("地震の大きさ：2回目")]
     public float earthquakePower_Seconds = 1.0f;
 
+    [Header("ゲームオーバーの時間")]
+    public float gameoverTime = 310f;
+
     // 災害イベントフラグ
     private bool isFirstErath = false;       // 地震
     private bool isSecondEarth = false;
     public bool isFire = true;          // 火事
+
+    // 死亡原因フラグ
+    public bool isFireDie = false;
+    public bool isEarthDie = false;
+
+    // 死亡フラグ
+    public bool isPlayerDead = false;
 
 
     void Awake()
@@ -82,6 +92,11 @@ public class GameManager : MonoBehaviour
                 shakeHouse.StartShake();
                 isSecondEarth = true;
 
+            }
+
+            if(gameTime >= gameoverTime)
+            {
+                isEarthDie = true;
             }
 
         }
