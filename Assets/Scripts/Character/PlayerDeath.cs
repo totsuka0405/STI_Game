@@ -25,6 +25,12 @@ public class PlayerDeath : MonoBehaviour
             Die();
             
         }
+
+        if (GameManager.instance.isEarthDie)
+        {
+            Die();
+            GameManager.instance.isPlayerDead = true;
+        }
     }
 
     public void Die()
@@ -74,5 +80,15 @@ public class PlayerDeath : MonoBehaviour
             yield return null;
         }
         deathScreen.alpha = 1f;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Fire"))
+        {
+            Die();
+            GameManager.instance.isFireDie = true;
+            GameManager.instance.isPlayerDead = true;
+        }
     }
 }

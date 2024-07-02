@@ -7,6 +7,7 @@ TagManager:
   - Item
   - Door
   - cap
+  - Fire
   layers:
   - Default
   - TransparentFX
