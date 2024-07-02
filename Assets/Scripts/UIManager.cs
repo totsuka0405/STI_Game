@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour
     public GameObject startUI;
     public RectTransform itemBoxUI;
     public GameObject crossHair;
+    public GameObject controlUI;
+
+    public float closeControlUITime = 7.0f;
+
     private bool isPositionAtZero = false;
     private bool isOpenCrossHair = false;
 
@@ -15,6 +19,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         startUI.SetActive(true);
+        controlUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,6 +27,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.instance.IsGameStarted())
         {
+
             if (!isOpenCrossHair)
             {
                 OpenCrossHair();
@@ -32,6 +38,14 @@ public class UIManager : MonoBehaviour
             {
                 TogglePosition();
             }
+
+            controlUI.SetActive(true);
+
+            if(GameManager.instance.gameTime >= closeControlUITime)
+            {
+                controlUI.SetActive(false);
+            }
+
         }
         
     }
