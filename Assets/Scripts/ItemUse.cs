@@ -39,6 +39,16 @@ public class ItemUse : MonoBehaviour
                 {
                     GameManager.instance.isGameClear = true;
                 }
+                else if (hit.collider.CompareTag("memo"))
+                {
+                    Memo memo = hit.collider.GetComponent<Memo>();
+                    if (memo != null)
+                    {
+                        int memonumber = memo.memonumber;
+                        Debug.Log("memonumber: " + memonumber);
+                        GameManager.instance.memo = memonumber;
+                    }
+                }
             }
         }
     }

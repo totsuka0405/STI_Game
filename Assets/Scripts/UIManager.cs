@@ -14,6 +14,11 @@ public class UIManager : MonoBehaviour
     public GameObject earthDie;
     public GameObject gameClear;
 
+    public GameObject memos;
+    public GameObject memo1;
+    public GameObject memo2;
+    public GameObject memo3;
+
     public float closeControlUITime = 7.0f;
 
     private bool isPositionAtZero = false;
@@ -53,6 +58,7 @@ public class UIManager : MonoBehaviour
 
             DieReason();
             Clear();
+            Memo();
         }
         
     }
@@ -121,6 +127,33 @@ public class UIManager : MonoBehaviour
         if(GameManager.instance.isGameClear == true)
         {
             gameClear.SetActive(true);
+        }
+    }
+
+    void Memo()
+    {
+        if (GameManager.instance.memo == 1)
+        {
+            memos.SetActive(true);
+            memo1.SetActive(true);
+        }
+        else if(GameManager.instance.memo == 2)
+        {
+            memos.SetActive(true);
+            memo2.SetActive(true);
+        }
+        else if (GameManager.instance.memo == 3)
+        {
+            memos.SetActive(true);
+            memo3.SetActive(true);
+        }
+        else if(GameManager.instance.memo == 0)
+        {
+
+            memo1.SetActive(false);
+            memo2.SetActive(false);
+            memo3.SetActive(false);
+            memos.SetActive(false);
         }
     }
 }

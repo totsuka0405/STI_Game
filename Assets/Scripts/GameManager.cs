@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
     // クリアフラグ
     public bool isGameClear = false;
 
+    // memoの種類
+    public int memo = 0;
+
     void Awake()
     {
         if (instance == null)
