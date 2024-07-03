@@ -9,6 +9,8 @@ TagManager:
   - cap
   - Fire
   - ClearPos
+  - memo
+  - Kagu
   layers:
   - Default
   - TransparentFX
