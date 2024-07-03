@@ -44,6 +44,19 @@ public class GameManager : MonoBehaviour
     // 死亡フラグ
     public bool isPlayerDead = false;
 
+    // クリアフラグ
+    public bool isGameClear = false;
+
+    // memoの種類
+    public int memo = 0;
+
+
+    // セリフイベントフラグ
+    public bool _1Talk = false;
+    public bool _2Talk = false;
+    public bool _3Talk = false;
+    public bool _4Talk = false;
+    public bool _5Talk = false;
 
     void Awake()
     {
@@ -99,6 +112,25 @@ public class GameManager : MonoBehaviour
                 isEarthDie = true;
             }
 
+            if(memo == 1)
+            {
+                _2Talk = true;
+            }
+
+            if (memo == 2)
+            {
+                _3Talk = true;
+            }
+
+            if (memo == 3)
+            {
+                _4Talk = true;
+            }
+
+            if(gameTime >= shakeStartTimeFirst + 20f)
+            {
+                _5Talk = true;
+            }
         }
     }
 

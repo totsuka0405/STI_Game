@@ -153,4 +153,6 @@ public class CharacterMove : MonoBehaviour
             currentItemInstance.transform.localRotation = selectedItem.itemPrefab.transform.localRotation;
         }
     }
+
+   
 }

@@ -8,6 +8,9 @@ TagManager:
   - Door
   - cap
   - Fire
+  - ClearPos
+  - memo
+  - Kagu
   layers:
   - Default
   - TransparentFX
