@@ -8,6 +8,7 @@ TagManager:
   - Door
   - cap
   - Fire
+  - ClearPos
   layers:
   - Default
   - TransparentFX

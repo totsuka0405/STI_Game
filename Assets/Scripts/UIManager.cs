@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject dieUI;
     public GameObject fireDie;
     public GameObject earthDie;
+    public GameObject gameClear;
 
     public float closeControlUITime = 7.0f;
 
@@ -51,6 +52,7 @@ public class UIManager : MonoBehaviour
             }
 
             DieReason();
+            Clear();
         }
         
     }
@@ -111,6 +113,14 @@ public class UIManager : MonoBehaviour
             {
                 earthDie.SetActive(true);
             }
+        }
+    }
+
+    void Clear()
+    {
+        if(GameManager.instance.isGameClear == true)
+        {
+            gameClear.SetActive(true);
         }
     }
 }

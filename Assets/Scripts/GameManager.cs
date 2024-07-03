@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     // 死亡フラグ
     public bool isPlayerDead = false;
 
+    // クリアフラグ
+    public bool isGameClear = false;
 
     void Awake()
     {

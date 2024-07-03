@@ -35,6 +35,10 @@ public class ItemUse : MonoBehaviour
                     GameManager.instance.isFire = false;
                     Debug.Log("もとせんとじたよ");
                 }
+                else if (hit.collider.CompareTag("ClearPos"))
+                {
+                    GameManager.instance.isGameClear = true;
+                }
             }
         }
     }
