@@ -30,6 +30,7 @@ public class ShakeHouse : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
         initialPosition = transform.position;
     }
 
@@ -62,7 +63,7 @@ public class ShakeHouse : MonoBehaviour
             float shakeOffsetZ = Mathf.Cos(Time.time * shakeFrequency * 0.5f) * shakeMagnitude * shakeAmplitude;
             Vector3 shakeForce = new Vector3(shakeOffsetX, 0f, shakeOffsetZ);
 
-            rb.AddForce(shakeForce, ForceMode.Impulse);
+            rb.AddForce(shakeForce * Time.deltaTime, ForceMode.Impulse);
 
             shakeTimeRemaining -= Time.deltaTime * dampingSpeed;
         }
@@ -79,8 +80,6 @@ public class ShakeHouse : MonoBehaviour
             }
         }
     }
-
-   
 
     public void AddEarthquakeEvent(float duration, float maxMagnitude)
     {
