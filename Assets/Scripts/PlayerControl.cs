@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -8,15 +10,24 @@ public class PlayerControl : MonoBehaviour
     public Vector2 rotationSpeed = new Vector2(0.01f, 0.01f);
     public float maxRotationAngle = 90f;
     public float minRotationAngle = -100f;
+
+    public float displayDuration = 0.5f; // 表示する時間
     public float gameOver = 60f;
+
+    public TextMeshProUGUI displayText; // UIのTextコンポーネントを参照するための変数
+    public GameObject BackgroundPanel;  // テキストの背景パネル
 
     private Vector2 lastMousePosition;
     private Vector2 newAngle = Vector2.zero;
+
+    private Coroutine displayCoroutine; // コルーチンを管理するための変数
 
     private void Start()
     {
         // ゲーム開始から60秒後に視点回転を開始するコルーチンを開始
         //StartCoroutine(RotateViewAfterDelay(gameOver, 0.75f, 90f));
+        displayText.text = ""; // テキストをクリアする
+        BackgroundPanel.SetActive(false); // パネルを非表示
     }
 
     void Update()
@@ -84,21 +95,40 @@ public class PlayerControl : MonoBehaviour
         transform.Rotate(0, direction * 1.5f * rotationSpeed.y, 0);
     }
 
-    /*IEnumerator RotateViewAfterDelay(float delay, float duration, float angle)
+    void OnCollisionEnter(Collision collision)
     {
-        yield return new WaitForSeconds(delay);
 
-        float elapsedTime = 0f;
-        Quaternion initialRotation = transform.rotation;
-        Quaternion targetRotation = initialRotation * Quaternion.Euler(0, angle, 0); // Corrected to rotate around y-axis
-
-        while (elapsedTime < duration)
+        Debug.Log("ON");
+        CustomText customText = collision.gameObject.GetComponent<CustomText>();
+        if (customText != null)
         {
-            transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            Debug.Log("ON2");
+            displayText.text = "Touched: " + customText.objectName + "\n" + customText.displayText;
+            BackgroundPanel.SetActive(true); // パネルを表示
         }
+    }
 
-        transform.rotation = targetRotation;
-    }*/
+    void OnCollisionExit(Collision collision)
+    {
+        CustomText customText = collision.gameObject.GetComponent<CustomText>();
+        if (customText != null)
+        {
+            if (displayCoroutine != null)
+            {
+                StopCoroutine(displayCoroutine); // 既存のコルーチンを停止
+            }
+            displayCoroutine = StartCoroutine(DisplayTextForDuration(displayDuration, customText.objectName, customText.displayText));
+        }
+    }
+
+    IEnumerator DisplayTextForDuration(float duration, string objName, string text)
+    {
+        displayText.text = "Touched: " + objName + "\n" + text;
+        BackgroundPanel.SetActive(true); // パネルを表示
+
+        yield return new WaitForSeconds(duration);
+
+        displayText.text = ""; // テキストをクリア
+        BackgroundPanel.SetActive(false); // パネルを非表示
+    }
 }

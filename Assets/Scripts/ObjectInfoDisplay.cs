@@ -40,6 +40,7 @@ public class ObjectInfoDisplay : MonoBehaviour
             {
                 if (hit.collider.gameObject == objInfo.gameObject)
                 {
+                    Debug.Log("Hit");
                     // ヒットしたオブジェクトの情報を取得して表示
                     infoText.text = $"{objInfo.objectName}\n{objInfo.additionalInfo}";
                     BackgroundPanel.SetActive(true); // パネルを表示
