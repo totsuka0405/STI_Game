@@ -10,6 +10,7 @@ public class Item
         hand_light,
         phone,
         stopper,
+        game,
     }
 
     public ItemType type;       // 種類

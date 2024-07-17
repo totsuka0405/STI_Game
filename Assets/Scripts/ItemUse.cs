@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ItemUse : MonoBehaviour
 {
     public float rayDistance = 8f;
+    
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -49,6 +51,7 @@ public class ItemUse : MonoBehaviour
                         GameManager.instance.memo = memonumber;
                     }
                 }
+               
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -74,7 +75,7 @@ public class UIManager : MonoBehaviour
                 isOpenCrossHair = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Tab) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
             {
                 TogglePosition();
             }
@@ -96,10 +97,14 @@ public class UIManager : MonoBehaviour
             }
             
 
-            if (Input.GetKeyDown(KeyCode.Space) && istalk)
+            if (istalk)
             {
-                talk.SetActive(false);
-                istalk = false;
+                if (Input.GetKeyDown(KeyCode.Space) || Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
+                {
+                    talk.SetActive(false);
+                    istalk = false;
+                }
+                
             }
         }
         

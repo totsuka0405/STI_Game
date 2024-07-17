@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterMove : MonoBehaviour
 {
@@ -100,8 +101,8 @@ public class CharacterMove : MonoBehaviour
     void View()
     {
         // プレイヤーの視点操作
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity + Input.GetAxis("Joystick Look Horizontal") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity + Input.GetAxis("Joystick Look Vertical") * mouseSensitivity;
 
         verticalLookRotation += mouseY;
         verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
@@ -134,6 +135,21 @@ public class CharacterMove : MonoBehaviour
             int direction = scroll > 0 ? 1 : -1;
             int newIndex = ItemBox.instance.GetNextIndex(direction);
             ItemBox.instance.SelectItem(newIndex);
+        }
+
+        // ゲームパッドのアイテム切り替え
+        if (Gamepad.current != null)
+        {
+            if (Gamepad.current.rightShoulder.wasPressedThisFrame) // R1ボタンが押された場合
+            {
+                int nextIndex = ItemBox.instance.GetNextIndex(1);
+                ItemBox.instance.SelectItem(nextIndex);
+            }
+            else if (Gamepad.current.leftShoulder.wasPressedThisFrame) // L1ボタンが押された場合
+            {
+                int prevIndex = ItemBox.instance.GetNextIndex(-1);
+                ItemBox.instance.SelectItem(prevIndex);
+            }
         }
     }
 
