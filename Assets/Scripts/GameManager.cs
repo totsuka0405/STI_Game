@@ -14,11 +14,11 @@ public class GameManager : MonoBehaviour
     [Header("ゲーム内時間計測")]
     public float gameTime = 0f;
     [Header("地震発生時間：1回目")]
-    public float shakeStartTimeFirst = 180f;
+    public float shakeStartTimeFirst = 90f;
     [Header("地震発生時間：2回目")]
-    public float shakeStartTimeSeconds = 300f;
+    public float shakeStartTimeSeconds = 210f;
     [Header("火災発生時間")]
-    public float fireStartTime = 200f;
+    public float fireStartTime = 98f;
 
     [Header("地震の全体時間：1回目")]
     public float earthquaketime_First = 20f;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public float earthquakePower_Seconds = 1.0f;
 
     [Header("ゲームオーバーの時間")]
-    public float gameoverTime = 310f;
+    public float gameoverTime = 240f;
 
     // 災害イベントフラグ
     private bool isFirstErath = false;       // 地震
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
                 _4Talk = true;
             }
 
-            if(gameTime >= shakeStartTimeFirst + 20f)
+            if(gameTime >= shakeStartTimeFirst + 40f)
             {
                 _5Talk = true;
             }
@@ -162,9 +162,46 @@ public class GameManager : MonoBehaviour
         Application.Quit();
 #endif
     }
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // ここで参照を再設定
+        shakeHouse = FindObjectOfType<ShakeHouse>();
+        fire = GameObject.Find("Fire"); // "FireObjectName"は実際のオブジェクト名に置き換えてください
+        fire.SetActive(false);
+        ResetFlags(); // フラグをリセット
+    }
 
     public void Retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void ResetFlags()
+    {
+        // フラグのリセット
+        gameStarted = false;
+        gameTime = 0f;
+        isFirstErath = false;
+        isSecondEarth = false;
+        isFire = true;
+        isFireDie = false;
+        isEarthDie = false;
+        isPlayerDead = false;
+        isGameClear = false;
+        memo = 0;
+        _1Talk = false;
+        _2Talk = false;
+        _3Talk = false;
+        _4Talk = false;
+        _5Talk = false;
     }
 }

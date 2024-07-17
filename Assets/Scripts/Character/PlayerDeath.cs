@@ -19,17 +19,9 @@ public class PlayerDeath : MonoBehaviour
             return;
         }
 
-        // 仮に「K」キーを押すとプレイヤーが死亡するように設定
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Die();
-            
-        }
-
         if (GameManager.instance.isEarthDie)
         {
             Die();
-            GameManager.instance.isPlayerDead = true;
         }
     }
 
@@ -44,6 +36,7 @@ public class PlayerDeath : MonoBehaviour
         StartCoroutine(DeathAnimation());
         yield return StartCoroutine(FadeToBlack());
         // 死亡後の追加演出やゲームオーバー画面への遷移をここに追加できます
+        GameManager.instance.isPlayerDead = true;
     }
 
     private IEnumerator DeathAnimation()
@@ -88,7 +81,6 @@ public class PlayerDeath : MonoBehaviour
         {
             Die();
             GameManager.instance.isFireDie = true;
-            GameManager.instance.isPlayerDead = true;
         }
     }
 }
