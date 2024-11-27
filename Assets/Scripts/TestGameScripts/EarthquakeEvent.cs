@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class ShakeHouse : MonoBehaviour
+public class EarthquakeEvent_1 : MonoBehaviour
 {
-    public class EarthquakeEvent
+    public class EarthquakeEvent_2
     {
         public float duration;
         public float maxMagnitude;
 
-        public EarthquakeEvent(float duration, float maxMagnitude)
+        public EarthquakeEvent_2(float duration, float maxMagnitude)
         {
             this.duration = duration;
             this.maxMagnitude = maxMagnitude;
@@ -17,20 +17,39 @@ public class ShakeHouse : MonoBehaviour
 
     [SerializeField] float dampingSpeed = 1.0f; // 揺れの減衰スピード
     [SerializeField] float shakeFrequency = 20f; // 振動の周波数
-    [SerializeField]  float shakeAmplitude = 3.0f; // 振動の振幅
+    [SerializeField] float shakeAmplitude = 3.0f; // 振動の振幅
 
     private Rigidbody rb;
     private bool isShaking = false;
     private float shakeTimeRemaining;
     private float currentMaxShakeMagnitude;
     private int currentEventIndex = 0;
-    private List<EarthquakeEvent> earthquakeEvents = new List<EarthquakeEvent>();
+    private List<EarthquakeEvent_2> earthquakeEvents = new List<EarthquakeEvent_2>();
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+    }
+
+    private void OnEnable()
+    {
+        EventManager.OnDisasterEventTriggered += HandleEvent;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnDisasterEventTriggered -= HandleEvent;
+    }
+
+    private void HandleEvent(string eventType)
+    {
+        if (eventType == "Earthquake")
+        {
+            Debug.Log("Handling earthquake...");
+            // 地震の処理
+        }
     }
 
     void Update()
@@ -78,7 +97,7 @@ public class ShakeHouse : MonoBehaviour
 
     public void AddEarthquakeEvent(float duration, float maxMagnitude)
     {
-        earthquakeEvents.Add(new EarthquakeEvent(duration, maxMagnitude));
+        earthquakeEvents.Add(new EarthquakeEvent_2(duration, maxMagnitude));
     }
 
     public void StartShake()

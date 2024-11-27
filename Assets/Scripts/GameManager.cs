@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -52,11 +50,11 @@ public class GameManager : MonoBehaviour
 
 
     // セリフイベントフラグ
-    public bool _1Talk = false;
-    public bool _2Talk = false;
-    public bool _3Talk = false;
-    public bool _4Talk = false;
-    public bool _5Talk = false;
+    public bool selfSpleak_1 = false;
+    public bool selfSpleak_2 = false;
+    public bool selfSpleak_3 = false;
+    public bool selfSpleak_4 = false;
+    public bool selfSpleak_5 = false;
 
     void Awake()
     {
@@ -71,19 +69,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (gameStarted)
         {
             gameTime += Time.deltaTime;
-            
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (gameStarted)
+        {
             if (!isFirstErath && gameTime >= shakeStartTimeFirst)
             {
                 Debug.Log("地震だよ");
                 shakeHouse.AddEarthquakeEvent(earthquaketime_First, earthquakePower_First);
                 shakeHouse.StartShake();
                 isFirstErath = true;
-                
             }
 
             if (gameTime >= fireStartTime)
@@ -114,22 +117,22 @@ public class GameManager : MonoBehaviour
 
             if(memo == 1)
             {
-                _2Talk = true;
+                selfSpleak_2 = true;
             }
 
             if (memo == 2)
             {
-                _3Talk = true;
+                selfSpleak_3 = true;
             }
 
             if (memo == 3)
             {
-                _4Talk = true;
+                selfSpleak_4 = true;
             }
 
             if(gameTime >= shakeStartTimeFirst + 40f)
             {
-                _5Talk = true;
+                selfSpleak_5 = true;
             }
         }
     }
@@ -198,10 +201,10 @@ public class GameManager : MonoBehaviour
         isPlayerDead = false;
         isGameClear = false;
         memo = 0;
-        _1Talk = false;
-        _2Talk = false;
-        _3Talk = false;
-        _4Talk = false;
-        _5Talk = false;
+        selfSpleak_1 = false;
+        selfSpleak_2 = false;
+        selfSpleak_3 = false;
+        selfSpleak_4 = false;
+        selfSpleak_5 = false;
     }
 }
