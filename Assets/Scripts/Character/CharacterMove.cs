@@ -1,29 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CharacterMove : MonoBehaviour
 {
     public static CharacterMove instance;
 
+    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float sprintSpeed = 10f;
+    [SerializeField] float mouseSensitivity = 2f;
+    [SerializeField] Camera playerCamera;
     [SerializeField] Transform handTransform; // アイテムを表示する手の位置
 
     private GameObject currentItemInstance;
-
-    public float moveSpeed = 5f;
-    public float sprintSpeed = 10f;
-    
-    public float mouseSensitivity = 2f;
-    public Camera playerCamera;
-
     private ItemBox itemBox;
-
     private Rigidbody rb;
     private float verticalLookRotation;
-
     private bool isGameStarted = false;
-
 
     void Awake()
     {

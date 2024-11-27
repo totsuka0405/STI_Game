@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GamePadSetting : MonoBehaviour
@@ -10,7 +8,6 @@ public class GamePadSetting : MonoBehaviour
     void Update()
     {
         CheckGamepadConnection();
-        
     }
 
     void CheckGamepadConnection()

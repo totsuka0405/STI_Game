@@ -3,9 +3,8 @@ using UnityEngine.InputSystem;
 
 public class ItemUse : MonoBehaviour
 {
-    public float rayDistance = 8f;
+    [SerializeField] float rayDistance = 8f;
     
-
     void Update()
     {
         if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))

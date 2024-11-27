@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -33,14 +32,12 @@ public class UIManager : MonoBehaviour
     private bool isOpenCrossHair = false;
     private bool istalk = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         startUI.SetActive(true);
         controlUI.SetActive(false);
         dieUI.SetActive(false);
 
-        // 子オブジェクトにアタッチされたTextコンポーネントを取得
         if (talk != null)
         {
             textComponent = talk.GetComponentInChildren<Text>();
@@ -55,14 +52,12 @@ public class UIManager : MonoBehaviour
             Debug.LogError("Talk parent object is not assigned.");
         }
 
-        // GameManager.instanceがnullかどうか確認
         if (GameManager.instance == null)
         {
             Debug.LogError("GameManager instance is not set.");
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -85,7 +80,7 @@ public class UIManager : MonoBehaviour
             if(GameManager.instance.gameTime >= closeControlUITime)
             {
                 controlUI.SetActive(false);
-                GameManager.instance._1Talk = true;
+                GameManager.instance.selfSpleak_1 = true;
             }
 
             DieReason();
@@ -152,7 +147,6 @@ public class UIManager : MonoBehaviour
         crossHair.SetActive(true);
     }
 
-
     void DieReason()
     {
         if(GameManager.instance.isPlayerDead == true)
@@ -211,31 +205,31 @@ public class UIManager : MonoBehaviour
             return; // GameManager.instanceがnullなら処理を中断
         }
 
-        if (GameManager.instance._1Talk && talkCount ==0)
+        if (GameManager.instance.selfSpleak_1 && talkCount ==0)
         {
             SetTalkText("今日はパパもママもいないからゲームやりほうだいだ！はやくリビングでゲームをやろう！なんだろう、メモがおいてある");
             isTalk = true;
             talkCount ++;
         }
-        else if (GameManager.instance._2Talk && talkCount == 1)
+        else if (GameManager.instance.selfSpleak_2 && talkCount == 1)
         {
             SetTalkText("さいあくだ…せっかくの休みなのに！… 何としてもゲームを見つけなきゃ");
             isTalk = true;
             talkCount++;
         }
-        else if (GameManager.instance._3Talk && talkCount == 2)
+        else if (GameManager.instance.selfSpleak_3 && talkCount == 2)
         {
             SetTalkText("スマホを見つけた！ママは用心ぶかいからゲームはべつの場所にかくしてるみたい");
             isTalk = true;
             talkCount++;
         }
-        else if (GameManager.instance._4Talk && talkCount == 3)
+        else if (GameManager.instance.selfSpleak_4 && talkCount == 3)
         {
             SetTalkText("ゲームは見つけたけど…ママが帰ってきたら怒るかな…");
             isTalk = true;
             talkCount++;
         }
-        else if (GameManager.instance._5Talk && talkCount == 4)
+        else if (GameManager.instance.selfSpleak_5 && talkCount == 4)
         {
             SetTalkText("びっくりした…とりあえずじしんはおさまったみたい");
             isTalk = true;
