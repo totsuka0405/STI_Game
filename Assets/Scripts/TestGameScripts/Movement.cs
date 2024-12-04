@@ -3,10 +3,8 @@
 public class Movement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 5f;
-    [SerializeField] float sprintSpeed = 10f;
 
     private Rigidbody rb;
-    private float verticalLookRotation;
 
     void Awake()
     {

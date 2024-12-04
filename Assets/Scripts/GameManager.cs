@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
     public ShakeHouse shakeHouse;
     public GameObject fire;
+    public GameObject[] fires;
 
     private bool gameStarted = false;
 
@@ -56,6 +58,17 @@ public class GameManager : MonoBehaviour
     public bool selfSpleak_4 = false;
     public bool selfSpleak_5 = false;
 
+
+    // 時間ごとのインデックス範囲を配列で管理
+    private readonly List<List<int>> fireIndexes = new List<List<int>>()
+    {
+        new List<int> { 0 },            // 10秒後
+        new List<int> { 1, 2 },         // 20秒後
+        new List<int> { 3, 4, 5 },      // 30秒後
+        new List<int> { 6, 7, 8, 9 },   // 40秒後
+        new List<int> { 10, 11, 12, 13 }// 50秒後
+    };
+
     void Awake()
     {
         if (instance == null)
@@ -91,13 +104,10 @@ public class GameManager : MonoBehaviour
 
             if (gameTime >= fireStartTime)
             {
-                if (!isFire)
-                {
-
-                }
-                else if (isFire)
+                if (isFire)
                 {
                     FireOpen();
+                    CheckFireUp();
                 }
             }
 
@@ -140,6 +150,31 @@ public class GameManager : MonoBehaviour
     void FireOpen()
     {
         fire.SetActive(true);
+    }
+
+    void FireUp(int count)
+    {
+        fires[count].SetActive(true);
+    }
+
+    private void CheckFireUp()
+    {
+        if (!isFire) return;
+
+        // fireStartTimeからの経過時間を使って、どのインデックス範囲を呼び出すか決める
+        for (int i = 0; i < fireIndexes.Count; i++)
+        {
+            float targetTime = fireStartTime + (i + 1) * 25f;
+
+            if (gameTime >= targetTime)
+            {
+                // インデックスリストを順番に処理
+                foreach (var index in fireIndexes[i])
+                {
+                    FireUp(index);
+                }
+            }
+        }
     }
 
     public bool IsGameStarted()
