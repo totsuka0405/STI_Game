@@ -11,6 +11,7 @@ TagManager:
   - ClearPos
   - memo
   - Kagu
+  - LightSwitch
   layers:
   - Default
   - TransparentFX

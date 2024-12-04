@@ -25,7 +25,7 @@ public class ItemUse : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("Door"))
                 {
-                    Door door = hit.collider.GetComponentInParent<Door>();
+                    OpenCloseAnim door = hit.collider.GetComponentInParent<OpenCloseAnim>();
                     if (door != null)
                     {
                         door.ToggleDoor();
@@ -50,7 +50,15 @@ public class ItemUse : MonoBehaviour
                         GameManager.instance.memo = memonumber;
                     }
                 }
-               
+                else if (hit.collider.CompareTag("LightSwitch"))
+                {
+                    LightOnOff lightSwitch = hit.collider.GetComponent<LightOnOff>();
+                    if (lightSwitch != null)
+                    {
+                        lightSwitch.OnLight();
+                    }
+                }
+
             }
         }
     }

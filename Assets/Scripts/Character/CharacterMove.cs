@@ -11,11 +11,15 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] Camera playerCamera;
     [SerializeField] Transform handTransform; // アイテムを表示する手の位置
 
+    [SerializeField] UpObj upObj;
+
     private GameObject currentItemInstance;
     private ItemBox itemBox;
     private Rigidbody rb;
     private float verticalLookRotation;
     private bool isGameStarted = false;
+    bool isSit = false;
+    
 
     void Awake()
     {
@@ -49,6 +53,7 @@ public class CharacterMove : MonoBehaviour
             }
             View();
             ItemChange();
+            Crouch();
         }
     }
     void FixedUpdate()
@@ -162,5 +167,33 @@ public class CharacterMove : MonoBehaviour
         }
     }
 
-   
+    void Crouch()
+    {
+        if (!upObj.isUpObj)
+        {
+            // 左シフトキーが押されたらスケールを切り替える
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                // 現在のスケールを取得
+                Vector3 scale = this.transform.localScale;
+
+                if (isSit)
+                {
+                    scale.y = 1.0f; // 立ち上がるスケール
+                }
+                else
+                {
+                    scale.y = 0.5f; // しゃがむスケール
+                }
+
+                // スケールをオブジェクトに適用
+                this.transform.localScale = scale;
+
+                // 状態を切り替える
+                isSit = !isSit;
+            }
+        }
+        
+    }
+
 }

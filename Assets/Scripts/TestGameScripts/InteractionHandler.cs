@@ -33,7 +33,7 @@ public class InteractionHandler : MonoBehaviour
             }
             else if (hit.collider.CompareTag("Door"))
             {
-                Door door = hit.collider.GetComponentInParent<Door>();
+                OpenCloseAnim door = hit.collider.GetComponentInParent<OpenCloseAnim>();
                 if (door != null)
                 {
                     door.ToggleDoor();
