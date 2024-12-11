@@ -6,8 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
     public ShakeHouse shakeHouse;
+    public FireEvents fireEvents;
     public GameObject fire;
-    public GameObject[] fires;
+    [SerializeField] Breaker breaker;
 
     private bool gameStarted = false;
 
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviour
     public float shakeStartTimeSeconds = 210f;
     [Header("火災発生時間")]
     public float fireStartTime = 98f;
+
+    [Header("地震の収まる時間")]
+    public float earthquaketime_FirstDontDie = 125f;
 
     [Header("地震の全体時間：1回目")]
     public float earthquaketime_First = 20f;
@@ -36,10 +40,14 @@ public class GameManager : MonoBehaviour
     private bool isFirstErath = false;       // 地震
     private bool isSecondEarth = false;
     public bool isFire = true;          // 火事
+    public bool isFirstBreakerDown = false;
+    public bool isBreakerDown = false;
 
     // 死亡原因フラグ
     public bool isFireDie = false;
-    public bool isEarthDie = false;
+    public bool isFirstEarthDontDie = false;
+    public bool isFirstEarthDie = false;
+    public bool isSecondEarthDie = false;
 
     // 死亡フラグ
     public bool isPlayerDead = false;
@@ -50,6 +58,7 @@ public class GameManager : MonoBehaviour
     // memoの種類
     public int memo = 0;
 
+    
 
     // セリフイベントフラグ
     public bool selfSpleak_1 = false;
@@ -100,6 +109,7 @@ public class GameManager : MonoBehaviour
                 shakeHouse.AddEarthquakeEvent(earthquaketime_First, earthquakePower_First);
                 shakeHouse.StartShake();
                 isFirstErath = true;
+                
             }
 
             if (gameTime >= fireStartTime)
@@ -108,6 +118,24 @@ public class GameManager : MonoBehaviour
                 {
                     FireOpen();
                     CheckFireUp();
+                }
+            }
+
+            if(gameTime >= fireStartTime+4 && earthquaketime_FirstDontDie >= gameTime)
+            {
+                if (!isFirstEarthDontDie)
+                {
+                    isFirstEarthDie = true;
+                }
+            }
+
+            if (gameTime >= fireStartTime)
+            {
+                if (!isFirstBreakerDown)
+                {
+                    isFirstBreakerDown = true;
+                    isBreakerDown = true;
+                    breaker.SetAllObjectsInactive();
                 }
             }
 
@@ -122,7 +150,7 @@ public class GameManager : MonoBehaviour
 
             if(gameTime >= gameoverTime)
             {
-                isEarthDie = true;
+                isSecondEarthDie = true;
             }
 
             if(memo == 1)
@@ -152,11 +180,7 @@ public class GameManager : MonoBehaviour
         fire.SetActive(true);
     }
 
-    void FireUp(int count)
-    {
-        fires[count].SetActive(true);
-    }
-
+    
     private void CheckFireUp()
     {
         if (!isFire) return;
@@ -171,7 +195,7 @@ public class GameManager : MonoBehaviour
                 // インデックスリストを順番に処理
                 foreach (var index in fireIndexes[i])
                 {
-                    FireUp(index);
+                    fireEvents.FireUp(index);
                 }
             }
         }
@@ -214,6 +238,9 @@ public class GameManager : MonoBehaviour
         // ここで参照を再設定
         shakeHouse = FindObjectOfType<ShakeHouse>();
         fire = GameObject.Find("Fire"); // "FireObjectName"は実際のオブジェクト名に置き換えてください
+        breaker = FindObjectOfType<Breaker>();
+        fireEvents = FindObjectOfType<FireEvents>();
+        fireEvents.FireInActive();
         fire.SetActive(false);
         ResetFlags(); // フラグをリセット
     }
@@ -232,9 +259,13 @@ public class GameManager : MonoBehaviour
         isSecondEarth = false;
         isFire = true;
         isFireDie = false;
-        isEarthDie = false;
+        isFirstEarthDie = false;
+        isFirstEarthDontDie = false;
+        isSecondEarthDie = false;
         isPlayerDead = false;
         isGameClear = false;
+        isBreakerDown = false;
+        isFirstBreakerDown = false;
         memo = 0;
         selfSpleak_1 = false;
         selfSpleak_2 = false;

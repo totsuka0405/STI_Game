@@ -5,20 +5,35 @@ using UnityEngine;
 public class LightOnOff : MonoBehaviour
 {
     [SerializeField] GameObject lightObj;
-    [SerializeField] bool isTurn = false;
+    public bool isTurn = false;
 
-    public void OnLight()
+    public void OnLightWakeUp()
     {
         if (isTurn)
         {
-            lightObj.SetActive(false);
+            lightObj.SetActive(true);
         }
         else
         {
-            lightObj.SetActive(true);
+            lightObj.SetActive(false);
         }
+    }
 
-        isTurn = !isTurn;
+    public void OnLight()
+    {
+        if (GameManager.instance.isBreakerDown == false)
+        {
+            if (isTurn)
+            {
+                lightObj.SetActive(false);
+            }
+            else
+            {
+                lightObj.SetActive(true);
+            }
+
+            isTurn = !isTurn;
+        }   
     }
     
 }

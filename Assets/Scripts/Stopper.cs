@@ -25,8 +25,12 @@ public class Stopper : MonoBehaviour
                 if (hit.collider.CompareTag("Kagu"))
                 {
                     Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+                    StopperObjectActive stopperObjectActive = hit.collider.GetComponent<StopperObjectActive>();
+
                     if (rb != null)
                     {
+                        stopperObjectActive.isStopperActive = true;
+                        stopperObjectActive.StopperActive();
                         Destroy(rb);
                         Debug.Log("Rigidbody destroyed for object with 'kagu' tag.");
                     }

@@ -13,6 +13,11 @@ public class CharacterMove : MonoBehaviour
 
     [SerializeField] UpObj upObj;
 
+    public float crouchScale = 0.5f; // しゃがんだときのスケール
+    public float standScale = 1.0f; // 立ち上がったときのスケール
+    public float crouchSpeed = 2.0f; // しゃがみ・立ち上がりのスピード
+    private float targetScale; // 目標のスケール
+
     private GameObject currentItemInstance;
     private ItemBox itemBox;
     private Rigidbody rb;
@@ -32,7 +37,7 @@ public class CharacterMove : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        targetScale = standScale; // 初期状態は立っている
         itemBox = ItemBox.instance;
         if(itemBox == null)
         {
@@ -171,27 +176,25 @@ public class CharacterMove : MonoBehaviour
     {
         if (!upObj.isUpObj)
         {
-            // 左シフトキーが押されたらスケールを切り替える
+            /// 左コントロールキーが押されたらしゃがみ・立ち状態を切り替える
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
-                // 現在のスケールを取得
-                Vector3 scale = this.transform.localScale;
-
                 if (isSit)
                 {
-                    scale.y = 1.0f; // 立ち上がるスケール
+                    targetScale = standScale; // 立ち上がる
                 }
                 else
                 {
-                    scale.y = 0.5f; // しゃがむスケール
+                    targetScale = crouchScale; // しゃがむ
                 }
 
-                // スケールをオブジェクトに適用
-                this.transform.localScale = scale;
-
-                // 状態を切り替える
-                isSit = !isSit;
+                isSit = !isSit; // 状態を切り替える
             }
+
+            // 現在のスケールを目標スケールに向けて補間する
+            Vector3 scale = this.transform.localScale;
+            scale.y = Mathf.Lerp(scale.y, targetScale, crouchSpeed * Time.deltaTime);
+            this.transform.localScale = scale;
         }
         
     }

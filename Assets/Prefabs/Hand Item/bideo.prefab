@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3509062546542433524}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -94,6 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8613656746499723616}
+  - component: {fileID: 5802528281177428271}
   m_Layer: 0
   m_Name: bideo
   m_TagString: Item
@@ -117,6 +118,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &5802528281177428271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989760451020786650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e4d4c3b853eaf4784712bbaf7b2b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultScale: {x: 1, y: 1, z: 1}
 --- !u!1001 &1568368251276975838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -183,6 +197,10 @@ PrefabInstance:
     - target: {fileID: 5396280864937886641, guid: 16d4e8da86da7bb4da144a85d56d6545, type: 3}
       propertyPath: m_Name
       value: gameki
+      objectReference: {fileID: 0}
+    - target: {fileID: 6903368486440837727, guid: 16d4e8da86da7bb4da144a85d56d6545, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8267201140811834688, guid: 16d4e8da86da7bb4da144a85d56d6545, type: 3}

@@ -19,7 +19,12 @@ public class PlayerDeath : MonoBehaviour
             return;
         }
 
-        if (GameManager.instance.isEarthDie)
+        if (GameManager.instance.isFirstEarthDie)
+        {
+            Die();
+        }
+
+        if (GameManager.instance.isSecondEarthDie)
         {
             Die();
         }
@@ -81,6 +86,19 @@ public class PlayerDeath : MonoBehaviour
         {
             Die();
             GameManager.instance.isFireDie = true;
+        }
+
+        if (other.CompareTag("FirstEarthEventPos"))
+        {
+            GameManager.instance.isFirstEarthDontDie = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("FirstEarthEventPos"))
+        {
+            GameManager.instance.isFirstEarthDontDie = false;
         }
     }
 }

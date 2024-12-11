@@ -174,7 +174,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5066757973345957833}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -257,7 +257,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5661533427666081117}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -340,7 +340,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6714265996999122483}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -425,7 +425,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6954607123788551939}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 496988050345526130}
   - component: {fileID: 8508443086510309984}
   - component: {fileID: 4794336426272277316}
+  - component: {fileID: 6248368972728005615}
   m_Layer: 0
   m_Name: handlight
   m_TagString: Item
@@ -538,3 +539,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightObj: {fileID: 1153707755277016378}
+--- !u!114 &6248368972728005615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320862993598746369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e4d4c3b853eaf4784712bbaf7b2b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultScale: {x: 1, y: 1, z: 1}
