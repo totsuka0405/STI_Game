@@ -10,7 +10,7 @@ public class HandLight : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
+        if (Input.GetMouseButtonDown(1) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
         {
             if (isLight)
             {

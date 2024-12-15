@@ -15,7 +15,7 @@ public class Stopper : MonoBehaviour
         if (!isStopperUse)
             return;
 
-        if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
+        if (Input.GetMouseButtonDown(1) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
