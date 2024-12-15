@@ -15,7 +15,7 @@ public class Stopper : MonoBehaviour
         if (!isStopperUse)
             return;
 
-        if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
+        if (Input.GetMouseButtonDown(1) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -25,8 +25,12 @@ public class Stopper : MonoBehaviour
                 if (hit.collider.CompareTag("Kagu"))
                 {
                     Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+                    StopperObjectActive stopperObjectActive = hit.collider.GetComponent<StopperObjectActive>();
+
                     if (rb != null)
                     {
+                        stopperObjectActive.isStopperActive = true;
+                        stopperObjectActive.StopperActive();
                         Destroy(rb);
                         Debug.Log("Rigidbody destroyed for object with 'kagu' tag.");
                     }

@@ -17,7 +17,7 @@ public class ShakeHouse : MonoBehaviour
 
     [SerializeField] float dampingSpeed = 1.0f; // 揺れの減衰スピード
     [SerializeField] float shakeFrequency = 20f; // 振動の周波数
-    [SerializeField]  float shakeAmplitude = 3.0f; // 振動の振幅
+    [SerializeField] float shakeAmplitude = 3.0f; // 振動の振幅
 
     private Rigidbody rb;
     private bool isShaking = false;
@@ -64,9 +64,7 @@ public class ShakeHouse : MonoBehaviour
         }
         else if (shakeTimeRemaining <= 0 && isShaking)
         {
-            isShaking = false;
-            rb.velocity = Vector3.zero; // 加わっている力を0にする
-            rb.angularVelocity = Vector3.zero;
+            StopShake(); // Shake停止処理を呼び出す
 
             currentEventIndex++;
             if (currentEventIndex < earthquakeEvents.Count)
@@ -89,5 +87,12 @@ public class ShakeHouse : MonoBehaviour
             shakeTimeRemaining = earthquakeEvents[currentEventIndex].duration;
             currentMaxShakeMagnitude = earthquakeEvents[currentEventIndex].maxMagnitude;
         }
+    }
+
+    private void StopShake()
+    {
+        isShaking = false;
+        rb.velocity = Vector3.zero; // 移動速度をリセット
+        rb.angularVelocity = Vector3.zero; // 回転速度をリセット
     }
 }

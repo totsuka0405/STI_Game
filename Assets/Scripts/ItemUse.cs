@@ -58,6 +58,17 @@ public class ItemUse : MonoBehaviour
                         lightSwitch.OnLight();
                     }
                 }
+                /*
+                else if (hit.collider.CompareTag("Breaker"))
+                {
+                    Breaker breaker = hit.collider.GetComponent<Breaker>();
+                    if (breaker != null)
+                    {
+                        GameManager.instance.isBreakerDown = false;
+                        breaker.SetLightWakeUp();
+                    }
+                }
+                */
 
             }
         }

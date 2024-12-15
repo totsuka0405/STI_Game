@@ -12,6 +12,8 @@ TagManager:
   - memo
   - Kagu
   - LightSwitch
+  - FirstEarthEventPos
+  - Breaker
   layers:
   - Default
   - TransparentFX

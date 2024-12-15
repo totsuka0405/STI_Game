@@ -9,6 +9,7 @@ public class ObjectInfoDisplay : MonoBehaviour
     public Camera mainCamera; // メインカメラをインスペクターで設定
     public TextMeshProUGUI infoText; // Canvas 上の Text オブジェクトをインスペクターで設定
     public GameObject BackgroundPanel;  // テキストの背景パネル
+    [SerializeField] float rayDistance = 8f;
 
     // オブジェクトごとの情報を保持するクラス
     [System.Serializable]
@@ -33,7 +34,7 @@ public class ObjectInfoDisplay : MonoBehaviour
         RaycastHit hit;
 
         // Raycast を実行してオブジェクトにヒットするか確認
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, rayDistance))
         {
             // ヒットしたオブジェクトの情報を配列から検索
             foreach (ObjectInfo objInfo in objectsInfo)

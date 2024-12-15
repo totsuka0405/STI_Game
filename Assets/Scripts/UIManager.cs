@@ -11,8 +11,10 @@ public class UIManager : MonoBehaviour
     public GameObject controlUI;
     public GameObject dieUI;
     public GameObject fireDie;
-    public GameObject earthDie;
+    public GameObject secondEarthDie;
+    public GameObject firstEarthDie;
     public GameObject gameClear;
+    public GameObject settingPanel;
 
     public GameObject memos;
     public GameObject memo1;
@@ -101,6 +103,11 @@ public class UIManager : MonoBehaviour
                 }
                 
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                settingPanel.SetActive(!settingPanel.activeSelf);
+            }
         }
         
     }
@@ -122,6 +129,16 @@ public class UIManager : MonoBehaviour
         GameManager.instance.QuitGame();
     }
 
+    public void OpenSettingUI()
+    {
+        settingPanel.SetActive(true);
+    }
+
+    public void CloseSettingUI()
+    {
+        settingPanel.SetActive(false);
+    }
+
     /// <summary>
     /// アイテムボックスの表示非表示
     /// </summary>
@@ -129,7 +146,7 @@ public class UIManager : MonoBehaviour
     {
         if (isPositionAtZero)
         {
-            itemBoxUI.anchoredPosition = new Vector2(itemBoxUI.anchoredPosition.x, -150f);
+            itemBoxUI.anchoredPosition = new Vector2(itemBoxUI.anchoredPosition.x, -300f);
         }
         else
         {
@@ -156,9 +173,13 @@ public class UIManager : MonoBehaviour
             {
                 fireDie.SetActive(true);
             }
-            else if (GameManager.instance.isEarthDie)
+            else if (GameManager.instance.isSecondEarthDie)
             {
-                earthDie.SetActive(true);
+                secondEarthDie.SetActive(true);
+            }
+            else if (GameManager.instance.isFirstEarthDie)
+            {
+                firstEarthDie.SetActive(true);
             }
         }
     }
