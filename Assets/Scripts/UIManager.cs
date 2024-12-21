@@ -13,26 +13,26 @@ public class UIManager : MonoBehaviour
     public GameObject fireDie;
     public GameObject secondEarthDie;
     public GameObject firstEarthDie;
-    public GameObject gameClear;
+    public GameObject loopEnd;
     public GameObject settingPanel;
+    public GameObject endPanel;
+    public GameObject[] endingPanels;
 
     public GameObject memos;
     public GameObject memo1;
     public GameObject memo2;
     public GameObject memo3;
-
+    
     public GameObject talk;
 
     public Text textComponent;
-    public bool isTalk = false;
-
-    private int talkCount = 0;
-
+    bool isTalk = false;
+    int currentTalkCount = 0;
     public float closeControlUITime = 7.0f;
 
+    bool isMemoTalk = false;
     private bool isPositionAtZero = false;
     private bool isOpenCrossHair = false;
-    private bool istalk = false;
 
     void Start()
     {
@@ -86,27 +86,29 @@ public class UIManager : MonoBehaviour
             }
 
             DieReason();
-            Clear();
+            GameEndUI();
             Memo();
-            if (!istalk)
+            if (!isTalk)
             {
                 Talk();
             }
-            
 
-            if (istalk)
+            if (Input.GetKeyDown(KeyCode.Space) || Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
             {
-                if (Input.GetKeyDown(KeyCode.Space) || Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
-                {
-                    talk.SetActive(false);
-                    istalk = false;
-                }
-                
+                talk.SetActive(false);
+                isMemoTalk = true;
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                settingPanel.SetActive(!settingPanel.activeSelf);
+                if (settingPanel.activeSelf)
+                {
+                    CloseSettingUI();
+                }
+                else
+                {
+                    OpenSettingUI();
+                }
             }
         }
         
@@ -132,11 +134,14 @@ public class UIManager : MonoBehaviour
     public void OpenSettingUI()
     {
         settingPanel.SetActive(true);
+        CharacterMove.instance.isGameStarted = !CharacterMove.instance.isGameStarted;
     }
 
     public void CloseSettingUI()
     {
         settingPanel.SetActive(false);
+        CharacterMove.instance.isGameStarted = !CharacterMove.instance.isGameStarted;
+
     }
 
     /// <summary>
@@ -146,7 +151,7 @@ public class UIManager : MonoBehaviour
     {
         if (isPositionAtZero)
         {
-            itemBoxUI.anchoredPosition = new Vector2(itemBoxUI.anchoredPosition.x, -300f);
+            itemBoxUI.anchoredPosition = new Vector2(itemBoxUI.anchoredPosition.x, -1500f);
         }
         else
         {
@@ -168,6 +173,7 @@ public class UIManager : MonoBehaviour
     {
         if(GameManager.instance.isPlayerDead == true)
         {
+            CharacterMove.instance.isGameStarted = false;
             dieUI.SetActive(true);
             if (GameManager.instance.isFireDie)
             {
@@ -184,11 +190,45 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void Clear()
+
+    void GameEndUI()
     {
-        if(GameManager.instance.isGameClear == true)
+        if(GameManager.instance.isGameEnd == true)
         {
-            gameClear.SetActive(true);
+            endPanel.SetActive(true);
+            CharacterMove.instance.isGameStarted = false;
+            if (GameManager.instance.isLoopEnd == true)
+            {
+                loopEnd.SetActive(true);
+            }
+            else if (GameManager.instance.isEnd_1 == true)
+            {
+                endingPanels[0].SetActive(true);
+            }
+            else if (GameManager.instance.isEnd_2 == true)
+            {
+                endingPanels[1].SetActive(true);
+            }
+            else if (GameManager.instance.isEnd_3 == true)
+            {
+                endingPanels[2].SetActive(true);
+            }
+            else if (GameManager.instance.isEnd_4 == true)
+            {
+                endingPanels[3].SetActive(true);
+            }
+            else if (GameManager.instance.isEnd_5 == true)
+            {
+                endingPanels[4].SetActive(true);
+            }
+            else if (GameManager.instance.isEnd_6 == true)
+            {
+                endingPanels[5].SetActive(true);
+            }
+            else if (GameManager.instance.isEnd_7 == true)
+            {
+                endingPanels[6].SetActive(true);
+            }
         }
     }
 
@@ -226,37 +266,36 @@ public class UIManager : MonoBehaviour
             return; // GameManager.instanceがnullなら処理を中断
         }
 
-        if (GameManager.instance.selfSpleak_1 && talkCount ==0)
+        if (GameManager.instance.selfSpleak_1 && currentTalkCount == 0)
         {
             SetTalkText("今日はパパもママもいないからゲームやりほうだいだ！はやくリビングでゲームをやろう！なんだろう、メモがおいてある");
-            isTalk = true;
-            talkCount ++;
+            currentTalkCount++;
         }
-        else if (GameManager.instance.selfSpleak_2 && talkCount == 1)
+        else if (GameManager.instance.selfSpleak_2 && isMemoTalk)
         {
             SetTalkText("さいあくだ…せっかくの休みなのに！… 何としてもゲームを見つけなきゃ");
-            isTalk = true;
-            talkCount++;
+            GameManager.instance.selfSpleak_2 = false;
+            isMemoTalk = false;
         }
-        else if (GameManager.instance.selfSpleak_3 && talkCount == 2)
+        else if (GameManager.instance.selfSpleak_3 && isMemoTalk)
         {
             SetTalkText("スマホを見つけた！ママは用心ぶかいからゲームはべつの場所にかくしてるみたい");
-            isTalk = true;
-            talkCount++;
+            GameManager.instance.selfSpleak_3 = false;
+            isMemoTalk = false;
         }
-        else if (GameManager.instance.selfSpleak_4 && talkCount == 3)
+        else if (GameManager.instance.selfSpleak_4 && isMemoTalk)
         {
             SetTalkText("ゲームは見つけたけど…ママが帰ってきたら怒るかな…");
-            isTalk = true;
-            talkCount++;
+            GameManager.instance.selfSpleak_4 = false;
+            isMemoTalk = false;
         }
-        else if (GameManager.instance.selfSpleak_5 && talkCount == 4)
+        else if (GameManager.instance.selfSpleak_5 && currentTalkCount == 1)
         {
             SetTalkText("びっくりした…とりあえずじしんはおさまったみたい");
-            isTalk = true;
-            talkCount++;
+            currentTalkCount++;
         }
     }
+
 
     void SetTalkText(string text)
     {

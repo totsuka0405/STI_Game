@@ -11,16 +11,28 @@ public class Item
         phone,
         stopper,
         game,
+        whistle,
+        gloves,
+        slippers,
+        bottle,
+        radio,
+        firstaidkit,
+        bousaibook,
     }
 
+    public String name;
     public ItemType type;       // 種類
     public Sprite sprite;       // 画像
-    public GameObject itemPrefab; // アイテムのPrefab参照
+    public GameObject handItemPrefab; // アイテムのPrefab参照
+    public GameObject fieldItemPrefab;
 
-    public Item(ItemType type, Sprite sprite, GameObject itemPrefab)
+
+    public Item(String name, ItemType type, Sprite sprite, GameObject itemPrefab, GameObject fieldItemPrefab)
     {
+        this.name = name;
         this.type = type;
         this.sprite = sprite;
-        this.itemPrefab = itemPrefab;
+        this.handItemPrefab = itemPrefab;
+        this.fieldItemPrefab = fieldItemPrefab;
     }
 }

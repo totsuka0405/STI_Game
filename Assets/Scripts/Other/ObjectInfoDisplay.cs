@@ -29,29 +29,33 @@ public class ObjectInfoDisplay : MonoBehaviour
 
     void ShowObjectInfo()
     {
-        // マウスの位置から Ray を生成
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        // Raycast を実行してオブジェクトにヒットするか確認
-        if (Physics.Raycast(ray, out hit, rayDistance))
+        if (GameManager.instance.IsGameStarted())
         {
-            // ヒットしたオブジェクトの情報を配列から検索
-            foreach (ObjectInfo objInfo in objectsInfo)
+            // マウスの位置から Ray を生成
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            // Raycast を実行してオブジェクトにヒットするか確認
+            if (Physics.Raycast(ray, out hit, rayDistance))
             {
-                if (hit.collider.gameObject == objInfo.gameObject)
+                // ヒットしたオブジェクトの情報を配列から検索
+                foreach (ObjectInfo objInfo in objectsInfo)
                 {
-                    // ヒットしたオブジェクトの情報を取得して表示
-                    infoText.text = $"{objInfo.objectName}\n{objInfo.additionalInfo}";
-                    BackgroundPanel.SetActive(true); // パネルを表示
-                    return;
+                    if (hit.collider.gameObject == objInfo.gameObject)
+                    {
+                        // ヒットしたオブジェクトの情報を取得して表示
+                        infoText.text = $"{objInfo.objectName}\n{objInfo.additionalInfo}";
+                        BackgroundPanel.SetActive(true); // パネルを表示
+                        return;
+                    }
                 }
             }
-        }
 
-        // ヒットしなかった場合、情報を消去
-        infoText.text = "";
-        BackgroundPanel.SetActive(false); // パネルを非表示
+            // ヒットしなかった場合、情報を消去
+            infoText.text = "";
+            BackgroundPanel.SetActive(false); // パネルを非表示
+        }
+        
     }
 
 }

@@ -14,6 +14,8 @@ TagManager:
   - LightSwitch
   - FirstEarthEventPos
   - Breaker
+  - Bag
+  - Floor
   layers:
   - Default
   - TransparentFX

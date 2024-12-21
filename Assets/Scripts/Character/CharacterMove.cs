@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CharacterMove : MonoBehaviour
@@ -10,7 +11,6 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] float mouseSensitivity = 2f;
     [SerializeField] Camera playerCamera;
     [SerializeField] Transform handTransform; // アイテムを表示する手の位置
-
     [SerializeField] UpObj upObj;
 
     public float crouchScale = 0.5f; // しゃがんだときのスケール
@@ -22,9 +22,8 @@ public class CharacterMove : MonoBehaviour
     private ItemBox itemBox;
     private Rigidbody rb;
     private float verticalLookRotation;
-    private bool isGameStarted = false;
+    public bool isGameStarted { get; set; }
     bool isSit = false;
-    
 
     void Awake()
     {
@@ -47,18 +46,23 @@ public class CharacterMove : MonoBehaviour
 
     void Update()
     {
-        
         if (GameManager.instance.IsGameStarted())
         {
-            if (!isGameStarted)
+            if (isGameStarted)
             {
-                isGameStarted = true;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                View();
+                ItemChange();
+                Crouch();
+                ItemDrop();
             }
-            View();
-            ItemChange();
-            Crouch();
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            
         }
     }
     void FixedUpdate()
@@ -134,7 +138,7 @@ public class CharacterMove : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0)
         {
-            int direction = scroll > 0 ? 1 : -1;
+            int direction = scroll > 0 ? -1 : 1;
             int newIndex = ItemBox.instance.GetNextIndex(direction);
             ItemBox.instance.SelectItem(newIndex);
         }
@@ -155,6 +159,21 @@ public class CharacterMove : MonoBehaviour
         }
     }
 
+    void ItemDrop()
+    {
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            ItemBox.instance.RemoveSelectedItem();
+        }
+    }
+
+    public void DropItemgenerate(Item selectedItem)
+    {
+        GameObject dropObj = Instantiate(selectedItem.fieldItemPrefab,handTransform);
+        dropObj.transform.localScale = selectedItem.fieldItemPrefab.transform.localScale;
+        dropObj.transform.SetParent(null);
+    }
+
     public void DisplaySelectedItemInHand(Item selectedItem)
     {
         // 既に手元にアイテムがある場合は削除
@@ -164,11 +183,11 @@ public class CharacterMove : MonoBehaviour
         }
 
         // 新しいアイテムを手元に表示
-        if (selectedItem != null && selectedItem.itemPrefab != null)
+        if (selectedItem != null && selectedItem.handItemPrefab != null)
         {
-            currentItemInstance = Instantiate(selectedItem.itemPrefab, handTransform);
-            currentItemInstance.transform.localPosition = selectedItem.itemPrefab.transform.localPosition;
-            currentItemInstance.transform.localRotation = selectedItem.itemPrefab.transform.localRotation;
+            currentItemInstance = Instantiate(selectedItem.handItemPrefab, handTransform);
+            currentItemInstance.transform.localPosition = selectedItem.handItemPrefab.transform.localPosition;
+            currentItemInstance.transform.localRotation = selectedItem.handItemPrefab.transform.localRotation;
         }
     }
 
