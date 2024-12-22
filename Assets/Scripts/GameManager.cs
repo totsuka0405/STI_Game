@@ -77,6 +77,10 @@ public class GameManager : MonoBehaviour
     public bool isHaveFirstAidKit = false;
     public bool isHavePhone = false;
 
+    public bool isHandBousaiBook = false;
+    public bool isHandPhone = false;
+    public bool isHandItemUse = false;
+
     // イベントフラグ
     public bool isMapWatch = false;
     public bool isCallPhone = false;
@@ -158,7 +162,6 @@ public class GameManager : MonoBehaviour
                 if (!isFirstBreakerDown)
                 {
                     isFirstBreakerDown = true;
-                    isBreakerDown = true;
                     breaker.SetAllObjectsInactive();
                 }
             }
@@ -367,6 +370,9 @@ public class GameManager : MonoBehaviour
         isHaveRadio = false;
         isHaveFirstAidKit = false;
         isHavePhone = false;
+        isHandBousaiBook = false;
+        isHandPhone = false;
+        isHandItemUse = false;
         isMapWatch = false;
         isCallPhone = false;
         isGameEnd = false;

@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 5248607569150942482}
   - component: {fileID: 4497150641773118710}
   - component: {fileID: 1216268198712418474}
+  - component: {fileID: 7352246290870370800}
   m_Layer: 0
   m_Name: Slipper
   m_TagString: Item
@@ -226,3 +227,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 7
+--- !u!114 &7352246290870370800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7410935737030384641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ae604ecfc6a6d47ab5d8a77c64a34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: "\u30B9\u30EA\u30C3\u30D1"
+  additionalInfo: "\u62FE\u3046"

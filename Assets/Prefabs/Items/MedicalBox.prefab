@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 2886140245345106362}
   - component: {fileID: 2886140245345106361}
   - component: {fileID: 2201364839172254198}
+  - component: {fileID: -2993195291399150981}
   m_Layer: 0
   m_Name: MedicalBox
   m_TagString: Item
@@ -432,6 +433,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 10
+--- !u!114 &-2993195291399150981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651714814943381994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ae604ecfc6a6d47ab5d8a77c64a34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: "\u6551\u6025\u7BB1"
+  additionalInfo: "\u62FE\u3046"
 --- !u!1 &2780364929593294912
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,16 +12,6 @@ public class ObjectInfoDisplay : MonoBehaviour
     [SerializeField] float rayDistance = 8f;
 
     // オブジェクトごとの情報を保持するクラス
-    [System.Serializable]
-    public class ObjectInfo
-    {
-        public GameObject gameObject;
-        public string objectName;
-        public string additionalInfo;
-    }
-
-    public ObjectInfo[] objectsInfo; // 複数のオブジェクト情報を保持する配列
-
     void Update()
     {
         ShowObjectInfo();
@@ -29,33 +19,27 @@ public class ObjectInfoDisplay : MonoBehaviour
 
     void ShowObjectInfo()
     {
-        if (GameManager.instance.IsGameStarted())
+        // マウスの位置から Ray を生成
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // Raycast を実行してオブジェクトにヒットするか確認
+        if (Physics.Raycast(ray, out hit, rayDistance))
         {
-            // マウスの位置から Ray を生成
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Raycast を実行してオブジェクトにヒットするか確認
-            if (Physics.Raycast(ray, out hit, rayDistance))
+            // ヒットしたオブジェクトに ExplainObjectInfo がアタッチされているか確認
+            ExplainObjectInfo explainInfo = hit.collider.gameObject.GetComponent<ExplainObjectInfo>();
+            if (explainInfo != null)
             {
-                // ヒットしたオブジェクトの情報を配列から検索
-                foreach (ObjectInfo objInfo in objectsInfo)
-                {
-                    if (hit.collider.gameObject == objInfo.gameObject)
-                    {
-                        // ヒットしたオブジェクトの情報を取得して表示
-                        infoText.text = $"{objInfo.objectName}\n{objInfo.additionalInfo}";
-                        BackgroundPanel.SetActive(true); // パネルを表示
-                        return;
-                    }
-                }
+                // ヒットしたオブジェクトの情報を取得して表示
+                infoText.text = $"{explainInfo.objectName}\n{explainInfo.additionalInfo}";
+                BackgroundPanel.SetActive(true); // パネルを表示
+                return;
             }
-
-            // ヒットしなかった場合、情報を消去
-            infoText.text = "";
-            BackgroundPanel.SetActive(false); // パネルを非表示
         }
-        
+
+        // ヒットしなかった場合、情報を消去
+        infoText.text = "";
+        BackgroundPanel.SetActive(false); // パネルを非表示
     }
 
 }

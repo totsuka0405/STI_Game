@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 906041811977474224}
   - component: {fileID: 906041811977474225}
   - component: {fileID: 401570295881654822}
+  - component: {fileID: 8888636724728004661}
   m_Layer: 0
   m_Name: Gloves
   m_TagString: Item
@@ -192,6 +193,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 6
+--- !u!114 &8888636724728004661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906041811977474231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ae604ecfc6a6d47ab5d8a77c64a34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: "\u8ECD\u624B"
+  additionalInfo: "\u62FE\u3046"
 --- !u!1 &1407249350229990566
 GameObject:
   m_ObjectHideFlags: 0

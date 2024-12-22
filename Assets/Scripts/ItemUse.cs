@@ -85,7 +85,7 @@ public class ItemUse : MonoBehaviour
                         }
                         else
                         {
-                            GameManager.instance.isBreakerDown = false;
+                            GameManager.instance.isBreakerDown = true;
                         }
                     }
                 }

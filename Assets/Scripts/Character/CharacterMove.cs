@@ -23,6 +23,7 @@ public class CharacterMove : MonoBehaviour
     private Rigidbody rb;
     private float verticalLookRotation;
     public bool isGameStarted { get; set; }
+    public bool isCursolLock { get; set; }
     bool isSit = false;
 
     void Awake()
@@ -38,6 +39,7 @@ public class CharacterMove : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         targetScale = standScale; // 初期状態は立っている
         itemBox = ItemBox.instance;
+        isCursolLock = true;
         if(itemBox == null)
         {
             Debug.LogError("ItemBox instance not found.");
@@ -50,8 +52,16 @@ public class CharacterMove : MonoBehaviour
         {
             if (isGameStarted)
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                if (isCursolLock)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
                 View();
                 ItemChange();
                 Crouch();
@@ -61,6 +71,7 @@ public class CharacterMove : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+
             }
             
         }

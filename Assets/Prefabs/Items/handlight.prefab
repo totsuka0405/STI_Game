@@ -294,6 +294,7 @@ GameObject:
   - component: {fileID: -3995366128854077106}
   - component: {fileID: 4070185043155267676}
   - component: {fileID: 1469655466}
+  - component: {fileID: 3312322662312891232}
   m_Layer: 0
   m_Name: handlight
   m_TagString: Item
@@ -364,6 +365,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3312322662312891232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3166261752617925949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ae604ecfc6a6d47ab5d8a77c64a34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: "\u61D0\u4E2D\u96FB\u706F"
+  additionalInfo: "\u62FE\u3046"
 --- !u!1 &3380943313344570687
 GameObject:
   m_ObjectHideFlags: 0

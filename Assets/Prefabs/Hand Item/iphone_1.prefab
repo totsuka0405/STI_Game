@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 1441544405412529136}
   - component: {fileID: 632711886689794517}
   - component: {fileID: -8547568457618159407}
+  - component: {fileID: 4555030543891306835}
   m_Layer: 0
   m_Name: iphone_1
   m_TagString: Item
@@ -280,6 +281,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultScale: {x: 1, y: 1, z: 1}
+--- !u!114 &4555030543891306835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406271127009136038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bfbdb98eb18104fa45ff1da32274aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &726400176276065418
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public GameObject loopEnd;
     public GameObject settingPanel;
     public GameObject endPanel;
+    public GameObject handItemPanel;
     public GameObject[] endingPanels;
 
     public GameObject memos;
@@ -109,6 +110,15 @@ public class UIManager : MonoBehaviour
                 {
                     OpenSettingUI();
                 }
+            }
+
+            if(GameManager.instance.isHandItemUse == true)
+            {
+                handItemPanel.SetActive(true);
+            }
+            else
+            {
+                handItemPanel.SetActive(false);
             }
         }
         

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6044888260523006255}
   - component: {fileID: 6044888260523006288}
   - component: {fileID: 8736380624278760018}
+  - component: {fileID: 4491605323568806993}
   m_Layer: 0
   m_Name: Wistle
   m_TagString: Item
@@ -130,6 +131,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 5
+--- !u!114 &4491605323568806993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073932059894953267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ae604ecfc6a6d47ab5d8a77c64a34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: "\u7B1B"
+  additionalInfo: "\u62FE\u3046"
 --- !u!1 &5575412025724107585
 GameObject:
   m_ObjectHideFlags: 0

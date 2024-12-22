@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1399325576014316280}
   - component: {fileID: -8093571240516847395}
   - component: {fileID: 1690457923}
+  - component: {fileID: 6982072268895960110}
   m_Layer: 0
   m_Name: iphone_1
   m_TagString: Item
@@ -141,6 +142,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6982072268895960110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200795711225433262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ae604ecfc6a6d47ab5d8a77c64a34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: "\u30B9\u30DE\u30DB"
+  additionalInfo: "\u62FE\u3046"
 --- !u!1 &269739105239502763
 GameObject:
   m_ObjectHideFlags: 0
