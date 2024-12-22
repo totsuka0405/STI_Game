@@ -13,18 +13,63 @@ MonoBehaviour:
   m_Name: Item List Empty
   m_EditorClassIdentifier: 
   itemList:
-  - type: 0
+  - name: "\u30D0\u30C3\u30C8"
+    type: 0
     sprite: {fileID: 21300000, guid: a9c96ca661cc4e242a598edec6d295e0, type: 3}
-    itemPrefab: {fileID: 295329373029592020, guid: e744b26aa63180141b07f5d3627aed92, type: 3}
-  - type: 1
+    handItemPrefab: {fileID: 295329373029592020, guid: e744b26aa63180141b07f5d3627aed92, type: 3}
+    fieldItemPrefab: {fileID: 1793587583126221474, guid: 5ea8c8e3b80ee2049a8ec51a0bad9a83, type: 3}
+  - name: "\u61D0\u4E2D\u96FB\u706F"
+    type: 1
     sprite: {fileID: 21300000, guid: 1af50a2c9840a6c44b81d275d2f5b6e9, type: 3}
-    itemPrefab: {fileID: 7320862993598746369, guid: 4fb625adc1737fa4bba1b1004b1acd5c, type: 3}
-  - type: 2
+    handItemPrefab: {fileID: 7320862993598746369, guid: 4fb625adc1737fa4bba1b1004b1acd5c, type: 3}
+    fieldItemPrefab: {fileID: 3166261752617925949, guid: 8eb02ee58e9f660428f0cbe51a9c3cbc, type: 3}
+  - name: "\u30B9\u30DE\u30DB"
+    type: 2
     sprite: {fileID: 21300000, guid: cb3cc68e6b6b4fa42b6684e2645b0dc7, type: 3}
-    itemPrefab: {fileID: 406271127009136038, guid: ab0fca947d8313e4cb69c86634d52bfe, type: 3}
-  - type: 3
+    handItemPrefab: {fileID: 406271127009136038, guid: ab0fca947d8313e4cb69c86634d52bfe, type: 3}
+    fieldItemPrefab: {fileID: 200795711225433262, guid: f7f45b0b68d47c34989b41465b071c96, type: 3}
+  - name: "\u30B9\u30C8\u30C3\u30D1\u30FC"
+    type: 3
     sprite: {fileID: 21300000, guid: 1f837c7d78a21d34da28e21678534020, type: 3}
-    itemPrefab: {fileID: 5673275060319618499, guid: 70d55466c5ea79e47851ae4c8f09fe70, type: 3}
-  - type: 4
+    handItemPrefab: {fileID: 5673275060319618499, guid: 70d55466c5ea79e47851ae4c8f09fe70, type: 3}
+    fieldItemPrefab: {fileID: 4571188389189124221, guid: fdd159fd055d59f4ea8f369327650367, type: 3}
+  - name: "\u30B2\u30FC\u30E0\u6A5F"
+    type: 4
+    sprite: {fileID: 21300000, guid: 8ad114c387cab12478a03da56d9ff98e, type: 3}
+    handItemPrefab: {fileID: 8989760451020786650, guid: 12f851239bc05e948a9b1677817a3072, type: 3}
+    fieldItemPrefab: {fileID: 8989760451020786650, guid: 49b8309db19ac164299a0d10ad9691ab, type: 3}
+  - name: "\u7B1B"
+    type: 5
     sprite: {fileID: 21300000, guid: bd2e3ea44493bbb458ed0ce44359e204, type: 3}
-    itemPrefab: {fileID: 8989760451020786650, guid: 12f851239bc05e948a9b1677817a3072, type: 3}
+    handItemPrefab: {fileID: 2073932059894953267, guid: 997219efa7955b54e9ac07e848a7a028, type: 3}
+    fieldItemPrefab: {fileID: 2073932059894953267, guid: 3f0b64a310a02f842bcf6bed797c1ec3, type: 3}
+  - name: "\u8ECD\u624B"
+    type: 6
+    sprite: {fileID: 21300000, guid: d0de9140878b66b44a59bb0b9915b00e, type: 3}
+    handItemPrefab: {fileID: 906041811977474231, guid: 1f232842f24ebbc4793dd7c6d772fd79, type: 3}
+    fieldItemPrefab: {fileID: 906041811977474231, guid: 1aade8fcc174f7e40833e2bd20644604, type: 3}
+  - name: "\u30B9\u30EA\u30C3\u30D1"
+    type: 7
+    sprite: {fileID: 21300000, guid: cbcec00671da77c4491c7a53bca53a88, type: 3}
+    handItemPrefab: {fileID: 7410935737030384641, guid: c24a7d0a90708114ba9da1adeec53fb2, type: 3}
+    fieldItemPrefab: {fileID: 7410935737030384641, guid: fb975a7518ae18e4991ad77ca5792917, type: 3}
+  - name: "\u30DA\u30C3\u30C8\u30DC\u30C8\u30EB"
+    type: 8
+    sprite: {fileID: 21300000, guid: 0a6f1907e34dc1a4c84a48cc86d18b78, type: 3}
+    handItemPrefab: {fileID: 990052197514616346, guid: 2e01a23b1c1f8e64cba7cd648cb13d85, type: 3}
+    fieldItemPrefab: {fileID: 990052197514616346, guid: a2a07567f29e45e46931ffec35810808, type: 3}
+  - name: "\u30E9\u30B8\u30AA"
+    type: 9
+    sprite: {fileID: 21300000, guid: 267c4a916cefbd045bef33f462f2f47c, type: 3}
+    handItemPrefab: {fileID: 2529831313175209697, guid: 657d01e1dabf80a4a84bd07d59429b05, type: 3}
+    fieldItemPrefab: {fileID: 2529831313175209697, guid: b7fd1bac13f9d4a4f9d0ca14e5724014, type: 3}
+  - name: "\u6551\u6025\u7BB1"
+    type: 10
+    sprite: {fileID: 21300000, guid: 719113a934ad96b4dbfd805f84cbe52d, type: 3}
+    handItemPrefab: {fileID: 2651714814943381994, guid: dff016bd1efa3f24d9dcb01c97d65cf0, type: 3}
+    fieldItemPrefab: {fileID: 2651714814943381994, guid: a09af33335212364bb78b35da985dc4b, type: 3}
+  - name: "\u9632\u707D\u30D6\u30C3\u30AF"
+    type: 11
+    sprite: {fileID: 21300000, guid: 51be82eb5756203458768955e0bab187, type: 3}
+    handItemPrefab: {fileID: 3026288673644787095, guid: acce711515aa9194bb693f26f6bd4d7b, type: 3}
+    fieldItemPrefab: {fileID: 3026288673644787095, guid: f16829e5fda344a4d8b96c2abf04e525, type: 3}

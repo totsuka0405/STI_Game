@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public ShakeHouse shakeHouse;
     public FireEvents fireEvents;
     public GameObject fire;
+    [SerializeField] GameObject game;
+    [SerializeField] Transform gameParents;
     [SerializeField] Breaker breaker;
 
     private bool gameStarted = false;
@@ -37,12 +39,13 @@ public class GameManager : MonoBehaviour
     public float gameoverTime = 240f;
 
     // 災害イベントフラグ
-    private bool isFirstErath = false;       // 地震
-    private bool isSecondEarth = false;
+    public bool isFirstErath = false;       // 地震
+    public bool isSecondEarth = false;
     public bool isFire = true;          // 火事
     public bool isFirstBreakerDown = false;
     public bool isBreakerDown = false;
 
+    public bool isGameEnd = false;
     // 死亡原因フラグ
     public bool isFireDie = false;
     public bool isFirstEarthDontDie = false;
@@ -52,13 +55,38 @@ public class GameManager : MonoBehaviour
     // 死亡フラグ
     public bool isPlayerDead = false;
 
-    // クリアフラグ
-    public bool isGameClear = false;
+    // ループエンドフラグ
+    public bool isLoopEnd = false;
+
+    // クリアエンディングフラグ
+    public bool isEnd_1 = false;
+    public bool isEnd_2 = false;
+    public bool isEnd_3 = false;
+    public bool isEnd_4 = false;
+    public bool isEnd_5 = false;
+    public bool isEnd_6 = false;
+    public bool isEnd_7 = false;
+
+    // 所持イベントアイテムフラグ
+    public bool isHaveSlipper = false;
+    public bool isHaveWhistle = false;
+    public bool isHaveHandLight = false;
+    public bool isHaveGloves = false;
+    public bool isHaveBottle = false;
+    public bool isHaveRadio = false;
+    public bool isHaveFirstAidKit = false;
+    public bool isHavePhone = false;
+
+    public bool isHandBousaiBook = false;
+    public bool isHandPhone = false;
+    public bool isHandItemUse = false;
+
+    // イベントフラグ
+    public bool isMapWatch = false;
+    public bool isCallPhone = false;
 
     // memoの種類
     public int memo = 0;
-
-    
 
     // セリフイベントフラグ
     public bool selfSpleak_1 = false;
@@ -134,7 +162,6 @@ public class GameManager : MonoBehaviour
                 if (!isFirstBreakerDown)
                 {
                     isFirstBreakerDown = true;
-                    isBreakerDown = true;
                     breaker.SetAllObjectsInactive();
                 }
             }
@@ -201,6 +228,61 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void EndFrag()
+    {
+        if (gameTime < earthquaketime_FirstDontDie)
+        {
+            isLoopEnd = true;
+            return;
+        }
+
+        if (isFire)
+        {
+            isEnd_4 = true;
+            return;
+        }
+
+        if (!isBreakerDown)
+        {
+            isEnd_5 = true;
+            return;
+        }
+
+        if (!isMapWatch)
+        {
+            isEnd_6 = true;
+            return;
+        }
+
+        if (!isCallPhone)
+        {
+            isEnd_7 = true;
+            return;
+        }
+
+        if (!isHaveSlipper)
+        {
+            isEnd_3 = true;
+            return;
+        }
+
+        if (!IsAnyItemHeld())
+        {
+            isEnd_2 = true;
+            return;
+        }
+
+        isEnd_1 = true;
+    }
+
+    // 新たに抽出したメソッド
+    bool IsAnyItemHeld()
+    {
+        return isHaveHandLight || isHaveBottle || isHavePhone ||
+               isHaveGloves || isHaveSlipper || isHaveWhistle || isHaveRadio;
+    }
+
+
     public bool IsGameStarted()
     {
         return gameStarted;
@@ -209,6 +291,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         gameStarted = true;
+        CharacterMove.instance.isGameStarted = true;
     }
 
     public void StopGame()
@@ -263,7 +346,7 @@ public class GameManager : MonoBehaviour
         isFirstEarthDontDie = false;
         isSecondEarthDie = false;
         isPlayerDead = false;
-        isGameClear = false;
+        isLoopEnd = false;
         isBreakerDown = false;
         isFirstBreakerDown = false;
         memo = 0;
@@ -272,5 +355,26 @@ public class GameManager : MonoBehaviour
         selfSpleak_3 = false;
         selfSpleak_4 = false;
         selfSpleak_5 = false;
+        isEnd_1 = false;
+        isEnd_2 = false;
+        isEnd_3 = false;
+        isEnd_4 = false;
+        isEnd_5 = false;
+        isEnd_6 = false;
+        isEnd_7 = false;
+        isHaveSlipper = false;
+        isHaveWhistle = false;
+        isHaveHandLight = false;
+        isHaveGloves = false;
+        isHaveBottle = false;
+        isHaveRadio = false;
+        isHaveFirstAidKit = false;
+        isHavePhone = false;
+        isHandBousaiBook = false;
+        isHandPhone = false;
+        isHandItemUse = false;
+        isMapWatch = false;
+        isCallPhone = false;
+        isGameEnd = false;
     }
 }

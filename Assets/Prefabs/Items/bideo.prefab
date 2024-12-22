@@ -11,11 +11,13 @@ GameObject:
   - component: {fileID: 5801827038934807302}
   - component: {fileID: 1715451869567286565}
   - component: {fileID: 7565752070412652679}
-  - component: {fileID: 8071403059423161000}
   - component: {fileID: 8071403059423161003}
+  - component: {fileID: 1482198639}
+  - component: {fileID: 1482198638}
+  - component: {fileID: 7721524222327123743}
   m_Layer: 0
   m_Name: bideo
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +89,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &8071403059423161000
+--- !u!65 &8071403059423161003
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3509062546542433524}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.010000006, y: 0.008454914, z: 0.009999994}
+  m_Center: {x: -0.000000001629815, y: 0.0007725429, z: -0.00000000372529}
+--- !u!54 &1482198639
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,19 +118,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &8071403059423161003
-BoxCollider:
+--- !u!114 &1482198638
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3509062546542433524}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.010000006, y: 0.008454914, z: 0.009999994}
-  m_Center: {x: -0.000000001629815, y: 0.0007725429, z: -0.00000000372529}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b7755e2970c2343b7a436ffde5b40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 4
+--- !u!114 &7721524222327123743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3509062546542433524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ae604ecfc6a6d47ab5d8a77c64a34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: "\u30B2\u30FC\u30E0\u6A5F"
+  additionalInfo: "\u62FE\u3046"
 --- !u!1 &8989760451020786650
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +156,7 @@ GameObject:
   - component: {fileID: 8613656746499723616}
   m_Layer: 0
   m_Name: bideo
-  m_TagString: Item
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,7 +168,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8989760451020786650}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class ItemUse : MonoBehaviour
 {
     [SerializeField] float rayDistance = 8f;
-    
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
@@ -16,11 +16,18 @@ public class ItemUse : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Item"))
                 {
-                    // 子オブジェクトのColliderを持つ親のPickupObjスクリプトを取得
-                    PickupObj pickupObj = hit.collider.GetComponentInParent<PickupObj>();
-                    if (pickupObj != null)
+                    if(ItemBox.instance.handItemLimit > ItemBox.instance.handItemCount)
                     {
-                        pickupObj.OnClickObj();
+                        // 子オブジェクトのColliderを持つ親のPickupObjスクリプトを取得
+                        PickupObj pickupObj = hit.collider.GetComponentInParent<PickupObj>();
+                        if (pickupObj != null)
+                        {
+                            pickupObj.OnClickObj();
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("これ以上アイテムを持てません");
                     }
                 }
                 else if (hit.collider.CompareTag("Door"))
@@ -38,7 +45,8 @@ public class ItemUse : MonoBehaviour
                 }
                 else if (hit.collider.CompareTag("ClearPos"))
                 {
-                    GameManager.instance.isGameClear = true;
+                    GameManager.instance.EndFrag();
+                    GameManager.instance.isGameEnd = true;
                 }
                 else if (hit.collider.CompareTag("memo"))
                 {
@@ -58,17 +66,38 @@ public class ItemUse : MonoBehaviour
                         lightSwitch.OnLight();
                     }
                 }
-                /*
                 else if (hit.collider.CompareTag("Breaker"))
                 {
                     Breaker breaker = hit.collider.GetComponent<Breaker>();
                     if (breaker != null)
                     {
-                        GameManager.instance.isBreakerDown = false;
-                        breaker.SetLightWakeUp();
+                        if (!GameManager.instance.isFirstErath)
+                        {
+                            if (GameManager.instance.isBreakerDown)
+                            {
+                                breaker.SetLightWakeUp();
+                            }
+                            else
+                            {
+                                breaker.SetLightWakeUp();
+                            }
+                            GameManager.instance.isBreakerDown = !GameManager.instance.isBreakerDown;
+                        }
+                        else
+                        {
+                            GameManager.instance.isBreakerDown = true;
+                        }
                     }
                 }
-                */
+                else if (hit.collider.CompareTag("Bag"))
+                {
+                    Bag bag = hit.collider.GetComponent<Bag>();
+                    if(bag != null)
+                    {
+                        bag.OnBagEvent();
+                    }
+                }
+                
 
             }
         }
