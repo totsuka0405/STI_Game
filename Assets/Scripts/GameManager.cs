@@ -325,6 +325,8 @@ public class GameManager : MonoBehaviour
         fireEvents = FindObjectOfType<FireEvents>();
         fireEvents.FireInActive();
         fire.SetActive(false);
+        
+        
         ResetFlags(); // フラグをリセット
     }
 

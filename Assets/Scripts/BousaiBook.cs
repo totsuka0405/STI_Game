@@ -23,6 +23,14 @@ public class BousaiBook : MonoBehaviour
                 OnNext();
             }
         }
+        else
+        {
+            foreach (var panel in bousaiPanels)
+            {
+                panel.SetActive(false);
+            }
+            panelindex = 0;
+        }
     }
 
     public void OnNext()

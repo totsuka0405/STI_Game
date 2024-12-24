@@ -23,20 +23,22 @@ public class PhoneAppUI : MonoBehaviour
                 if (phoneUI.activeSelf)
                 {
                     phoneUI.SetActive(false);
-                    CharacterMove.instance.isCursolLock = !CharacterMove.instance.isCursolLock;
+                    appCallPanels.SetActive(false);
+                    appMapPanels.SetActive(false);
+                    CharacterMove.instance.isCursolLock = true;
                 }
                 else
                 {
                     phoneUI.SetActive(true);
-                    CharacterMove.instance.isCursolLock = !CharacterMove.instance.isCursolLock;
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
+                    CharacterMove.instance.isCursolLock = false;
                 }
                 
             }
         }
         else
         {
+            appCallPanels.SetActive(false);
+            appMapPanels.SetActive(false);
             phoneUI.SetActive(false);
         }
     }
@@ -51,12 +53,5 @@ public class PhoneAppUI : MonoBehaviour
     {
         appCallPanels.SetActive(true);
         GameManager.instance.isCallPhone = true;
-    }
-
-    private void OnDisable()
-    {
-        appCallPanels.SetActive(false);
-        appMapPanels.SetActive(false);
-        phoneUI.SetActive(false);
     }
 }
