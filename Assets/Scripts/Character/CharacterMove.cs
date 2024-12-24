@@ -13,6 +13,8 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] Transform handTransform; // アイテムを表示する手の位置
     [SerializeField] UpObj upObj;
 
+    [SerializeField] AudioClip footstepClip;          // 足音のクリップ
+
     public float crouchScale = 0.5f; // しゃがんだときのスケール
     public float standScale = 1.0f; // 立ち上がったときのスケール
     public float crouchSpeed = 2.0f; // しゃがみ・立ち上がりのスピード
@@ -81,7 +83,6 @@ public class CharacterMove : MonoBehaviour
         if (isGameStarted)
         {
             Moves();
-           
         }
     }
 

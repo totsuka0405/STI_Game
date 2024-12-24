@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
+  clip: {fileID: 8300000, guid: c31633e76d450d6449a1c911b7236e2c, type: 3}
 --- !u!65 &97669927798610413
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LightOnOff : MonoBehaviour
 {
     [SerializeField] GameObject lightObj;
+    [SerializeField] AudioClip audioClip;
     public bool isTurn = false;
 
     public void OnLightWakeUp()
@@ -31,7 +32,7 @@ public class LightOnOff : MonoBehaviour
             {
                 lightObj.SetActive(true);
             }
-
+            SoundManager.instance.PlaySE(audioClip, transform.position);
             isTurn = !isTurn;
         }   
     }

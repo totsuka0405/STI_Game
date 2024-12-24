@@ -7,99 +7,104 @@ public class ItemUse : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
+        if (CharacterMove.instance.isGameStarted)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, rayDistance))
+            if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
             {
-                if (hit.collider.CompareTag("Item"))
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, rayDistance))
                 {
-                    if(ItemBox.instance.handItemLimit > ItemBox.instance.handItemCount)
+                    if (hit.collider.CompareTag("Item"))
                     {
-                        // 子オブジェクトのColliderを持つ親のPickupObjスクリプトを取得
-                        PickupObj pickupObj = hit.collider.GetComponentInParent<PickupObj>();
-                        if (pickupObj != null)
+                        if (ItemBox.instance.handItemLimit > ItemBox.instance.handItemCount)
                         {
-                            pickupObj.OnClickObj();
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("これ以上アイテムを持てません");
-                    }
-                }
-                else if (hit.collider.CompareTag("Door"))
-                {
-                    OpenCloseAnim door = hit.collider.GetComponentInParent<OpenCloseAnim>();
-                    if (door != null)
-                    {
-                        door.ToggleDoor();
-                    }
-                }
-                else if (hit.collider.CompareTag("cap"))
-                {
-                    GameManager.instance.isFire = false;
-                    Debug.Log("もとせんとじたよ");
-                }
-                else if (hit.collider.CompareTag("ClearPos"))
-                {
-                    GameManager.instance.EndFrag();
-                    GameManager.instance.isGameEnd = true;
-                }
-                else if (hit.collider.CompareTag("memo"))
-                {
-                    Memo memo = hit.collider.GetComponent<Memo>();
-                    if (memo != null)
-                    {
-                        int memonumber = memo.memonumber;
-                        Debug.Log("memonumber: " + memonumber);
-                        GameManager.instance.memo = memonumber;
-                    }
-                }
-                else if (hit.collider.CompareTag("LightSwitch"))
-                {
-                    LightOnOff lightSwitch = hit.collider.GetComponent<LightOnOff>();
-                    if (lightSwitch != null)
-                    {
-                        lightSwitch.OnLight();
-                    }
-                }
-                else if (hit.collider.CompareTag("Breaker"))
-                {
-                    Breaker breaker = hit.collider.GetComponent<Breaker>();
-                    if (breaker != null)
-                    {
-                        if (!GameManager.instance.isFirstErath)
-                        {
-                            if (GameManager.instance.isBreakerDown)
+                            // 子オブジェクトのColliderを持つ親のPickupObjスクリプトを取得
+                            PickupObj pickupObj = hit.collider.GetComponentInParent<PickupObj>();
+                            if (pickupObj != null)
                             {
-                                breaker.SetLightWakeUp();
+                                pickupObj.OnClickObj();
                             }
-                            else
-                            {
-                                breaker.SetLightWakeUp();
-                            }
-                            GameManager.instance.isBreakerDown = !GameManager.instance.isBreakerDown;
                         }
                         else
                         {
-                            GameManager.instance.isBreakerDown = true;
+                            Debug.Log("これ以上アイテムを持てません");
                         }
                     }
-                }
-                else if (hit.collider.CompareTag("Bag"))
-                {
-                    Bag bag = hit.collider.GetComponent<Bag>();
-                    if(bag != null)
+                    else if (hit.collider.CompareTag("Door"))
                     {
-                        bag.OnBagEvent();
+                        OpenCloseAnim door = hit.collider.GetComponentInParent<OpenCloseAnim>();
+                        if (door != null)
+                        {
+                            door.ToggleDoor();
+                        }
                     }
-                }
-                
+                    else if (hit.collider.CompareTag("cap"))
+                    {
+                        GameManager.instance.isFire = false;
+                        Debug.Log("もとせんとじたよ");
+                    }
+                    else if (hit.collider.CompareTag("ClearPos"))
+                    {
+                        GameManager.instance.EndFrag();
+                        GameManager.instance.isGameEnd = true;
+                    }
+                    else if (hit.collider.CompareTag("memo"))
+                    {
+                        Memo memo = hit.collider.GetComponent<Memo>();
+                        if (memo != null)
+                        {
+                            int memonumber = memo.memonumber;
+                            Debug.Log("memonumber: " + memonumber);
+                            GameManager.instance.memo = memonumber;
+                        }
+                    }
+                    else if (hit.collider.CompareTag("LightSwitch"))
+                    {
+                        LightOnOff lightSwitch = hit.collider.GetComponent<LightOnOff>();
+                        if (lightSwitch != null)
+                        {
+                            lightSwitch.OnLight();
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Breaker"))
+                    {
+                        Breaker breaker = hit.collider.GetComponent<Breaker>();
+                        if (breaker != null)
+                        {
+                            if (!GameManager.instance.isFirstErath)
+                            {
+                                if (GameManager.instance.isBreakerDown)
+                                {
+                                    breaker.SetLightWakeUp();
+                                    GameManager.instance.isBreakerDown = false;
+                                }
+                                else
+                                {
+                                    breaker.SetAllObjectsInactive();
+                                    GameManager.instance.isBreakerDown = true;
+                                }
+                            }
+                            else
+                            {
+                                GameManager.instance.isBreakerDown = true;
+                            }
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Bag"))
+                    {
+                        Bag bag = hit.collider.GetComponent<Bag>();
+                        if (bag != null)
+                        {
+                            bag.OnBagEvent();
+                        }
+                    }
 
+
+                }
             }
+        
         }
     }
 }

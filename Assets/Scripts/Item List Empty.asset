@@ -35,12 +35,12 @@ MonoBehaviour:
     fieldItemPrefab: {fileID: 4571188389189124221, guid: fdd159fd055d59f4ea8f369327650367, type: 3}
   - name: "\u30B2\u30FC\u30E0\u6A5F"
     type: 4
-    sprite: {fileID: 21300000, guid: 8ad114c387cab12478a03da56d9ff98e, type: 3}
+    sprite: {fileID: 21300000, guid: bd2e3ea44493bbb458ed0ce44359e204, type: 3}
     handItemPrefab: {fileID: 8989760451020786650, guid: 12f851239bc05e948a9b1677817a3072, type: 3}
     fieldItemPrefab: {fileID: 8989760451020786650, guid: 49b8309db19ac164299a0d10ad9691ab, type: 3}
   - name: "\u7B1B"
     type: 5
-    sprite: {fileID: 21300000, guid: bd2e3ea44493bbb458ed0ce44359e204, type: 3}
+    sprite: {fileID: 21300000, guid: 8ad114c387cab12478a03da56d9ff98e, type: 3}
     handItemPrefab: {fileID: 2073932059894953267, guid: 997219efa7955b54e9ac07e848a7a028, type: 3}
     fieldItemPrefab: {fileID: 2073932059894953267, guid: 3f0b64a310a02f842bcf6bed797c1ec3, type: 3}
   - name: "\u8ECD\u624B"

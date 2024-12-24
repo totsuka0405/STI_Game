@@ -34,6 +34,8 @@ public class UIManager : MonoBehaviour
     bool isMemoTalk = false;
     private bool isPositionAtZero = false;
     private bool isOpenCrossHair = false;
+    bool isCallEventEnd = false;
+    bool isMapEventEnd = false;
 
     void Start()
     {
@@ -92,6 +94,7 @@ public class UIManager : MonoBehaviour
             if (!isTalk)
             {
                 Talk();
+                EventTalk();
             }
 
             if (Input.GetKeyDown(KeyCode.Space) || Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
@@ -269,6 +272,30 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    void EventTalk()
+    {
+        if (GameManager.instance.isCallPhone && !isCallEventEnd)
+        {
+            isCallEventEnd = true;
+            string[] messages = {
+                "ママに電話をかけた",
+                "ママ「もしもし、どうかしたの？」",
+                "ママ「え？ひなんじょの場所？急にどうしたの、青山小だけど…",
+                "うちの家族の集合場所は青山小学校のようだ"
+            };
+            ShowMessagesSequentially(messages, 5.0f);
+        }
+        else if(GameManager.instance.isMapWatch && !isMapEventEnd)
+        {
+            isMapEventEnd = true;
+            string[] messages = {
+                "自分の家の近くのひなんじょの場所をかくにんした",
+                "このあたりだと青山小学校と赤木小学校がひなんじょになっているらしい",
+            };
+            ShowMessagesSequentially(messages, 3.0f);
+        }
+    }
+
     void Talk()
     {
         if (GameManager.instance == null)
@@ -323,6 +350,29 @@ public class UIManager : MonoBehaviour
     IEnumerator HideTalkAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        talk.SetActive(false);
+        isTalk = false;
+    }
+
+    /// <summary>
+    /// 複数のメッセージを順番に表示する
+    /// </summary>
+    /// <param name="messages">表示するメッセージのリスト</param>
+    /// <param name="delay">各メッセージの表示時間</param>
+    public void ShowMessagesSequentially(string[] messages, float delay)
+    {
+        StartCoroutine(ShowMessagesCoroutine(messages, delay));
+    }
+
+    private IEnumerator ShowMessagesCoroutine(string[] messages, float delay)
+    {
+        foreach (var message in messages)
+        {
+            SetTalkText(message); // メッセージを表示
+            yield return new WaitForSeconds(delay); // 指定した時間だけ待機
+        }
+
+        // 全メッセージ表示が完了したらトークUIを非表示にする
         talk.SetActive(false);
         isTalk = false;
     }
