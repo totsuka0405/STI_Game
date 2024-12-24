@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CharacterMove : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] Camera playerCamera;
     [SerializeField] Transform handTransform; // アイテムを表示する手の位置
     [SerializeField] UpObj upObj;
+    [SerializeField] Slider mouseSensitivitySlider;
 
     [SerializeField] AudioClip footstepClip;          // 足音のクリップ
 
@@ -45,6 +47,11 @@ public class CharacterMove : MonoBehaviour
         if(itemBox == null)
         {
             Debug.LogError("ItemBox instance not found.");
+        }
+        if (mouseSensitivitySlider != null)
+        {
+            mouseSensitivitySlider.value = mouseSensitivity;
+            mouseSensitivitySlider.onValueChanged.AddListener(OnMouseSensitivityChanged);
         }
     }
 
@@ -114,6 +121,11 @@ public class CharacterMove : MonoBehaviour
         {
             rb.angularVelocity = Vector3.zero;
         }
+    }
+
+    void OnMouseSensitivityChanged(float value)
+    {
+        mouseSensitivity = value; // スライダーの値を感度に反映
     }
 
     void View()
