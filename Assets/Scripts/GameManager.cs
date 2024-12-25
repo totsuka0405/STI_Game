@@ -278,8 +278,8 @@ public class GameManager : MonoBehaviour
     // 新たに抽出したメソッド
     bool IsAnyItemHeld()
     {
-        return isHaveHandLight || isHaveBottle || isHavePhone ||
-               isHaveGloves || isHaveSlipper || isHaveWhistle || isHaveRadio;
+        return isHaveHandLight && isHaveBottle && isHavePhone &&
+               isHaveGloves && isHaveSlipper && isHaveWhistle && isHaveRadio;
     }
 
 
