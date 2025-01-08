@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer; // AudioMixerをインスペクターで設定
     [SerializeField] private AudioSource bgmSource; // BGM用のAudioSource
     private float currentSEVolume = 0.5f; // 現在のSEの音量
+    private List<AudioSource> loopSESources = new List<AudioSource>(); // ループSE用AudioSourceリスト
+
     private void Awake()
     {
         if (instance == null)
@@ -43,7 +46,7 @@ public class SoundManager : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
 
-        //Destroy(tempAudioSource, clip.length); // 再生終了後に削除
+        loopSESources.Add(audioSource); // リストに追加
     }
 
 
@@ -68,6 +71,15 @@ public class SoundManager : MonoBehaviour
             audioMixer.SetFloat("SEVolume", Mathf.Log10(volume) * 20); // AudioMixer用
         }
         currentSEVolume = volume;
+
+        // ループSEの音量を更新
+        foreach (var source in loopSESources)
+        {
+            if (source != null)
+            {
+                source.volume = volume;
+            }
+        }
     }
 
     // BGMの音量設定
