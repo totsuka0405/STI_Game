@@ -62,10 +62,13 @@ public class ItemUse : MonoBehaviour
                     }
                     else if (hit.collider.CompareTag("LightSwitch"))
                     {
-                        LightOnOff lightSwitch = hit.collider.GetComponent<LightOnOff>();
-                        if (lightSwitch != null)
+                        if (!GameManager.instance.isFirstBreakerDown)
                         {
-                            lightSwitch.OnLight();
+                            LightOnOff lightSwitch = hit.collider.GetComponent<LightOnOff>();
+                            if (lightSwitch != null)
+                            {
+                                lightSwitch.OnLight();
+                            }
                         }
                     }
                     else if (hit.collider.CompareTag("Breaker"))
