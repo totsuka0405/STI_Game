@@ -23,7 +23,7 @@ public class HandItemPhone : MonoBehaviour
         if(GameManager.instance.isCallPhone && !isCallEventEnd)
         {
             isCallEventEnd = true;
-            SoundManager.instance.PlaySE(clip, transform.position);
+            SoundManager.instance.PlaySE(clip, transform.position, this.transform);
         }
     }
 

@@ -20,11 +20,11 @@ public class SoundManager : MonoBehaviour
     }
 
     // SEを再生（オブジェクトから鳴らす用）
-    public void PlaySE(AudioClip clip, Vector3 position)
+    public void PlaySE(AudioClip clip, Vector3 position, Transform parent)
     {
         GameObject tempAudioSource = new GameObject("TempAudioSource");
         tempAudioSource.transform.position = position;
-
+        tempAudioSource.transform.SetParent(parent);
         AudioSource audioSource = tempAudioSource.AddComponent<AudioSource>();
         audioSource.volume = currentSEVolume; // 現在のSE音量を適用
         audioSource.clip = clip;

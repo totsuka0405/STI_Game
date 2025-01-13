@@ -75,7 +75,7 @@ public class PickupObj : MonoBehaviour
                 break;
 
         }
-        SoundManager.instance.PlaySE(clip, transform.position);
+        SoundManager.instance.PlaySE(clip, transform.position, this.transform);
         gameObject.SetActive(false);
     }
 }

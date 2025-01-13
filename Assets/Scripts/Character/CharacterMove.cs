@@ -12,7 +12,6 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] float mouseSensitivity = 2f;
     [SerializeField] Camera playerCamera;
     [SerializeField] Transform handTransform; // アイテムを表示する手の位置
-    [SerializeField] UpObj upObj;
     [SerializeField] Slider mouseSensitivitySlider;
 
     [SerializeField] AudioClip footstepClip;          // 足音のクリップ
@@ -73,7 +72,10 @@ public class CharacterMove : MonoBehaviour
                 }
                 View();
                 ItemChange();
-                Crouch();
+                if (!GameManager.instance.isFirstEarthDontDie)
+                {
+                    Crouch();
+                }
                 ItemDrop();
             }
             else
@@ -217,29 +219,26 @@ public class CharacterMove : MonoBehaviour
 
     void Crouch()
     {
-        if (!upObj.isUpObj)
+        /// 左コントロールキーが押されたらしゃがみ・立ち状態を切り替える
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            /// 左コントロールキーが押されたらしゃがみ・立ち状態を切り替える
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (isSit)
             {
-                if (isSit)
-                {
-                    targetScale = standScale; // 立ち上がる
-                }
-                else
-                {
-                    targetScale = crouchScale; // しゃがむ
-                }
-
-                isSit = !isSit; // 状態を切り替える
+                targetScale = standScale; // 立ち上がる
+            }
+            else
+            {
+                targetScale = crouchScale; // しゃがむ
             }
 
-            // 現在のスケールを目標スケールに向けて補間する
-            Vector3 scale = this.transform.localScale;
-            scale.y = Mathf.Lerp(scale.y, targetScale, crouchSpeed * Time.deltaTime);
-            this.transform.localScale = scale;
+            isSit = !isSit; // 状態を切り替える
         }
-        
+
+        // 現在のスケールを目標スケールに向けて補間する
+        Vector3 scale = this.transform.localScale;
+        scale.y = Mathf.Lerp(scale.y, targetScale, crouchSpeed * Time.deltaTime);
+        this.transform.localScale = scale;
+
     }
 
 }
