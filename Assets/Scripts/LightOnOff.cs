@@ -32,7 +32,7 @@ public class LightOnOff : MonoBehaviour
             {
                 lightObj.SetActive(true);
             }
-            SoundManager.instance.PlaySE(audioClip, transform.position);
+            SoundManager.instance.PlaySE(audioClip, transform.position, this.transform);
             isTurn = !isTurn;
         }   
     }

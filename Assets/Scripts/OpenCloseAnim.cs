@@ -39,7 +39,7 @@ public class OpenCloseAnim : MonoBehaviour
 
         // アニメーションを再生
         animations.Play(animationClip.name);
-        SoundManager.instance.PlaySE(openSE, transform.position);
+        SoundManager.instance.PlaySE(openSE, transform.position, this.transform);
         // アニメーションの長さを取得
         float animationDuration = animationClip.length;
 
