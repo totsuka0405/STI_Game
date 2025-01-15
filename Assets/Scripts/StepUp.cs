@@ -22,7 +22,7 @@ public class StepUp : MonoBehaviour
         Vector3 stepTopPosition = stepObj.transform.position + new Vector3(0, stepObj.transform.localScale.y / 2, 0);
 
         // Player の大きさを考慮して少し浮かせる
-        Vector3 playerAdjustedPosition = stepTopPosition + new Vector3(0, playerInScene.transform.localScale.y / 2 - 1.0f, 0);
+        Vector3 playerAdjustedPosition = stepTopPosition + new Vector3(0, playerInScene.transform.localScale.y / 2 + 0.05f, 0);
 
         // Player の位置を移動
         playerInScene.transform.position = playerAdjustedPosition;
