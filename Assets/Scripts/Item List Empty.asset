@@ -73,3 +73,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 51be82eb5756203458768955e0bab187, type: 3}
     handItemPrefab: {fileID: 3026288673644787095, guid: acce711515aa9194bb693f26f6bd4d7b, type: 3}
     fieldItemPrefab: {fileID: 3026288673644787095, guid: f16829e5fda344a4d8b96c2abf04e525, type: 3}
+  - name: "\u68AF\u5B50"
+    type: 12
+    sprite: {fileID: 21300000, guid: 0eece9a8399e13f4497498cb6a2e42df, type: 3}
+    handItemPrefab: {fileID: 8714359054965482433, guid: 8553479dc43871f4d8c20f15a2df3a0a, type: 3}
+    fieldItemPrefab: {fileID: 5544532243876963928, guid: ff78531ae986e8c49b47101ab4fc8548, type: 3}

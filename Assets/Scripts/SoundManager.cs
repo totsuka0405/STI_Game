@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -49,6 +50,20 @@ public class SoundManager : MonoBehaviour
         loopSESources.Add(audioSource); // リストに追加
     }
 
+    public void StopLoopSE(AudioClip clip)
+    {
+        // 再生中のAudioSourceをリストから検索
+        for (int i = loopSESources.Count - 1; i >= 0; i--)
+        {
+            AudioSource source = loopSESources[i];
+            if (source.clip == clip)
+            {
+                source.Stop(); // 再生を停止
+                Destroy(source.gameObject); // 一時オブジェクトを削除
+                loopSESources.RemoveAt(i); // リストから削除
+            }
+        }
+    }
 
     // BGMを再生
     public void PlayBGM(AudioClip clip)
@@ -94,4 +109,70 @@ public class SoundManager : MonoBehaviour
             audioMixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 20); // AudioMixer用
         }
     }
+
+    public void PlayLoopSEWithFadeIn(AudioClip clip, Vector3 position, float fadeInDuration)
+    {
+        GameObject tempAudioSource = new GameObject("TempAudioSource");
+        tempAudioSource.transform.position = position;
+
+        AudioSource audioSource = tempAudioSource.AddComponent<AudioSource>();
+        audioSource.volume = 0f; // 初期音量は0
+        audioSource.clip = clip;
+        audioSource.spatialBlend = 1.0f; // 3Dサウンドに設定
+        audioSource.loop = true;
+        audioSource.Play();
+
+        loopSESources.Add(audioSource); // リストに追加
+
+        // フェードインを開始
+        StartCoroutine(FadeIn(audioSource, fadeInDuration, currentSEVolume));
+    }
+
+    private IEnumerator FadeIn(AudioSource audioSource, float duration, float targetVolume)
+    {
+        float startVolume = 0f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, elapsedTime / duration);
+            yield return null;
+        }
+
+        audioSource.volume = targetVolume; // 最終的にターゲットボリュームを設定
+    }
+
+    public void StopLoopSEWithFadeOut(AudioClip clip, float fadeOutDuration)
+    {
+        // 再生中のAudioSourceをリストから検索
+        for (int i = loopSESources.Count - 1; i >= 0; i--)
+        {
+            AudioSource source = loopSESources[i];
+            if (source.clip == clip)
+            {
+                // フェードアウトを開始
+                StartCoroutine(FadeOutAndStop(source, fadeOutDuration));
+                loopSESources.RemoveAt(i); // リストから削除
+            }
+        }
+    }
+
+    private IEnumerator FadeOutAndStop(AudioSource audioSource, float duration)
+    {
+        float startVolume = audioSource.volume;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, 0f, elapsedTime / duration);
+            yield return null;
+        }
+
+        audioSource.volume = 0f; // 完全に音を消す
+        audioSource.Stop(); // 再生を停止
+        Destroy(audioSource.gameObject); // 一時オブジェクトを削除
+    }
+
 }

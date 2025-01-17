@@ -20,8 +20,13 @@ public class ObjectInfoDisplay : MonoBehaviour
     void ShowObjectInfo()
     {
         // マウスの位置から Ray を生成
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        // カメラの画面中央の座標を取得
+        Vector2 centerScreenPosition = new Vector2(Screen.width / 2, Screen.height / 2);
+
+        // 画面中央からレイを発射
+        Ray ray = Camera.main.ScreenPointToRay(centerScreenPosition);
         RaycastHit hit;
+
 
         // Raycast を実行してオブジェクトにヒットするか確認
         if (Physics.Raycast(ray, out hit, rayDistance))
@@ -30,6 +35,8 @@ public class ObjectInfoDisplay : MonoBehaviour
             ExplainObjectInfo explainInfo = hit.collider.gameObject.GetComponent<ExplainObjectInfo>();
             if (explainInfo != null)
             {
+                if (!explainInfo.isInfoActive) return;
+
                 // ヒットしたオブジェクトの情報を取得して表示
                 infoText.text = $"{explainInfo.objectName}\n{explainInfo.additionalInfo}";
                 BackgroundPanel.SetActive(true); // パネルを表示

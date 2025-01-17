@@ -18,6 +18,8 @@ public class Item
         radio,
         firstaidkit,
         bousaibook,
+        step,
+        other
     }
 
     public String name;

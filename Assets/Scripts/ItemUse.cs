@@ -11,8 +11,13 @@ public class ItemUse : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                // カメラの画面中央の座標を取得
+                Vector2 centerScreenPosition = new Vector2(Screen.width / 2, Screen.height / 2);
+
+                // 画面中央からレイを発射
+                Ray ray = Camera.main.ScreenPointToRay(centerScreenPosition);
                 RaycastHit hit;
+
 
                 if (Physics.Raycast(ray, out hit, rayDistance))
                 {
@@ -43,6 +48,8 @@ public class ItemUse : MonoBehaviour
                     else if (hit.collider.CompareTag("cap"))
                     {
                         GameManager.instance.isFire = false;
+                        ExplainObjectInfo explainInfo = hit.collider.gameObject.GetComponent<ExplainObjectInfo>();
+                        explainInfo.isInfoActive = false;
                         Debug.Log("もとせんとじたよ");
                     }
                     else if (hit.collider.CompareTag("ClearPos"))
@@ -65,6 +72,7 @@ public class ItemUse : MonoBehaviour
                         if (!GameManager.instance.isFirstBreakerDown)
                         {
                             LightOnOff lightSwitch = hit.collider.GetComponent<LightOnOff>();
+
                             if (lightSwitch != null)
                             {
                                 lightSwitch.OnLight();
@@ -101,6 +109,23 @@ public class ItemUse : MonoBehaviour
                         if (bag != null)
                         {
                             bag.OnBagEvent();
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Step"))
+                    {
+                        StepUp stepUp = hit.collider.GetComponent<StepUp>();
+                        if(stepUp != null)
+                        {
+                            stepUp.stepup();
+                        }
+                    }
+                    else if (hit.collider.CompareTag("stepEffect"))
+                    {
+                        Step step = hit.collider.GetComponent<Step>();
+                        if (step != null)
+                        {
+                            int stepnumber = step.stepnumber;
+                            step.CreateAndDestroy();
                         }
                     }
 
