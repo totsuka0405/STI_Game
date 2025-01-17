@@ -6,10 +6,6 @@ public class ChildScale : MonoBehaviour
 {
     public Vector3 defaultScale = Vector3.zero;
 
-    void Start()
-    {
-        defaultScale = transform.lossyScale;
-    }
 
     void Update()
     {
