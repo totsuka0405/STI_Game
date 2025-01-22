@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject endPanel;
     public GameObject handItemPanel;
     public GameObject[] endingPanels;
-
+    public GameObject curor;
     public GameObject memos;
     public GameObject memo1;
     public GameObject memo2;
@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     private bool isOpenCrossHair = false;
     bool isCallEventEnd = false;
     bool isMapEventEnd = false;
+    bool isFirstControlEvent = false;
 
     void Start()
     {
@@ -75,7 +76,7 @@ public class UIManager : MonoBehaviour
                 isOpenCrossHair = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Tab) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
+            if (Input.GetKeyDown(KeyCode.Tab) || Gamepad.current != null && Gamepad.current.buttonWest.wasPressedThisFrame)
             {
                 TogglePosition();
             }
@@ -84,8 +85,25 @@ public class UIManager : MonoBehaviour
 
             if(GameManager.instance.gameTime >= closeControlUITime)
             {
-                controlUI.SetActive(false);
-                GameManager.instance.selfSpleak_1 = true;
+                if (!isFirstControlEvent)
+                {
+                    controlUI.SetActive(false);
+                    GameManager.instance.selfSpleak_1 = true;
+                    isFirstControlEvent = true;
+                }
+                else
+                {
+                    if (CharacterMove.instance.isDontMove)
+                    {
+                        controlUI.SetActive(true);
+                    }
+                    else
+                    {
+                        controlUI.SetActive(false);
+                    }
+                }
+
+                
             }
 
             DieReason();
@@ -97,21 +115,24 @@ public class UIManager : MonoBehaviour
                 EventTalk();
             }
 
+
             if (Input.GetKeyDown(KeyCode.Space) || Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
             {
-                talk.SetActive(false);
                 isMemoTalk = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+
+            if (Input.GetKeyDown(KeyCode.Escape) || Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
             {
                 if (settingPanel.activeSelf)
                 {
                     CloseSettingUI();
+                    CharacterMove.instance.isGameStarted = true;
                 }
                 else
                 {
                     OpenSettingUI();
+                    CharacterMove.instance.isGameStarted = false;
                 }
             }
 
@@ -146,14 +167,16 @@ public class UIManager : MonoBehaviour
 
     public void OpenSettingUI()
     {
-        settingPanel.SetActive(true);
-        CharacterMove.instance.isGameStarted = !CharacterMove.instance.isGameStarted;
+        settingPanel.SetActive(true);  
     }
 
     public void CloseSettingUI()
     {
         settingPanel.SetActive(false);
-        CharacterMove.instance.isGameStarted = !CharacterMove.instance.isGameStarted;
+        if (GameManager.instance.IsGameStarted())
+        {
+            CharacterMove.instance.isGameStarted = !CharacterMove.instance.isGameStarted;
+        }
 
     }
 
@@ -208,7 +231,10 @@ public class UIManager : MonoBehaviour
     {
         if(GameManager.instance.isGameEnd == true)
         {
+            if (endPanel.activeSelf) return;
             endPanel.SetActive(true);
+            RectTransform curorPos = curor.GetComponent<RectTransform>();
+            curorPos.anchoredPosition = new Vector2(950f, 550f);
             CharacterMove.instance.isGameStarted = false;
             if (GameManager.instance.isLoopEnd == true)
             {
@@ -242,6 +268,7 @@ public class UIManager : MonoBehaviour
             {
                 endingPanels[6].SetActive(true);
             }
+
         }
     }
 

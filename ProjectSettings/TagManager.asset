@@ -16,6 +16,10 @@ TagManager:
   - Breaker
   - Bag
   - Floor
+  - Step
+  - stepEffect
+  - StepEfect
+  - DontSitPos
   layers:
   - Default
   - TransparentFX
@@ -23,7 +27,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - IgnorePlayer
   - 
   - 
   - 

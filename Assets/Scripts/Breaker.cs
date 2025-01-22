@@ -6,10 +6,12 @@ public class Breaker : MonoBehaviour
 {
     [SerializeField] GameObject[] lightObjs;
     [SerializeField] GameObject[] switchObj;
-
+    [SerializeField] AudioClip switchClip;
+    [SerializeField] AudioSource switchSource;
 
     public void SetLightWakeUp()
     {
+        SoundManager.instance.PlaySE(switchClip, switchSource);
         foreach(GameObject obj in switchObj)
         {
             if(obj != null)
@@ -22,6 +24,7 @@ public class Breaker : MonoBehaviour
 
     public void SetAllObjectsInactive()
     {
+        SoundManager.instance.PlaySE(switchClip, switchSource);
         foreach (GameObject obj in lightObjs)
         {
             if (obj != null) // 念のためnullチェック

@@ -5,14 +5,14 @@ using UnityEngine;
 public class FieldFire : MonoBehaviour
 {
     [SerializeField] AudioClip audioClip;
-
+    [SerializeField] AudioSource source;
     bool isFire = true;
 
     private void Update()
     {
         if(GameManager.instance.isFire && isFire)
         {
-            SoundManager.instance.PlayLoopSE(audioClip, transform.position);
+            SoundManager.instance.PlayLoopSE(audioClip, source);
             isFire = false;
         }
     }

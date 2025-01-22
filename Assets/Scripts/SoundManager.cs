@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using static Unity.VisualScripting.Member;
 
 public class SoundManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer; // AudioMixerをインスペクターで設定
     [SerializeField] private AudioSource bgmSource; // BGM用のAudioSource
-    private float currentSEVolume = 0.5f; // 現在のSEの音量
+    private float currentSEVolume = 0.8f; // 現在のSEの音量
     private List<AudioSource> loopSESources = new List<AudioSource>(); // ループSE用AudioSourceリスト
 
     private void Awake()
@@ -21,48 +22,45 @@ public class SoundManager : MonoBehaviour
     }
 
     // SEを再生（オブジェクトから鳴らす用）
-    public void PlaySE(AudioClip clip, Vector3 position, Transform parent)
+    public void PlaySE(AudioClip clip, AudioSource audioSource)
     {
-        GameObject tempAudioSource = new GameObject("TempAudioSource");
-        tempAudioSource.transform.position = position;
-        tempAudioSource.transform.SetParent(parent);
-        AudioSource audioSource = tempAudioSource.AddComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSourceが指定されていません");
+            return;
+        }
+
         audioSource.volume = currentSEVolume; // 現在のSE音量を適用
         audioSource.clip = clip;
         audioSource.spatialBlend = 1.0f; // 3Dサウンドに設定
         audioSource.Play();
-
-        Destroy(tempAudioSource, clip.length); // 再生終了後に削除
     }
 
-    public void PlayLoopSE(AudioClip clip, Vector3 position)
+    public void PlayLoopSE(AudioClip clip, AudioSource audioSource)
     {
-        GameObject tempAudioSource = new GameObject("TempAudioSource");
-        tempAudioSource.transform.position = position;
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSourceが指定されていません");
+            return;
+        }
 
-        AudioSource audioSource = tempAudioSource.AddComponent<AudioSource>();
         audioSource.volume = currentSEVolume; // 現在のSE音量を適用
         audioSource.clip = clip;
-        audioSource.spatialBlend = 1.0f; // 3Dサウンドに設定
         audioSource.loop = true;
         audioSource.Play();
 
         loopSESources.Add(audioSource); // リストに追加
     }
 
-    public void StopLoopSE(AudioClip clip)
+    public void StopLoopSE(AudioSource audioSource)
     {
-        // 再生中のAudioSourceをリストから検索
-        for (int i = loopSESources.Count - 1; i >= 0; i--)
+        if (audioSource == null || !loopSESources.Contains(audioSource))
         {
-            AudioSource source = loopSESources[i];
-            if (source.clip == clip)
-            {
-                source.Stop(); // 再生を停止
-                Destroy(source.gameObject); // 一時オブジェクトを削除
-                loopSESources.RemoveAt(i); // リストから削除
-            }
+            return;
         }
+        audioSource.loop = false;
+        audioSource.Stop(); // 再生を停止
+        loopSESources.Remove(audioSource); // リストから削除
     }
 
     // BGMを再生
@@ -110,12 +108,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayLoopSEWithFadeIn(AudioClip clip, Vector3 position, float fadeInDuration)
+    public void PlayLoopSEWithFadeIn(AudioClip clip, AudioSource audioSource, float fadeInDuration)
     {
-        GameObject tempAudioSource = new GameObject("TempAudioSource");
-        tempAudioSource.transform.position = position;
-
-        AudioSource audioSource = tempAudioSource.AddComponent<AudioSource>();
         audioSource.volume = 0f; // 初期音量は0
         audioSource.clip = clip;
         audioSource.spatialBlend = 1.0f; // 3Dサウンドに設定
@@ -143,16 +137,16 @@ public class SoundManager : MonoBehaviour
         audioSource.volume = targetVolume; // 最終的にターゲットボリュームを設定
     }
 
-    public void StopLoopSEWithFadeOut(AudioClip clip, float fadeOutDuration)
+    public void StopLoopSEWithFadeOut(AudioSource audioSource, float fadeOutDuration)
     {
         // 再生中のAudioSourceをリストから検索
         for (int i = loopSESources.Count - 1; i >= 0; i--)
         {
-            AudioSource source = loopSESources[i];
-            if (source.clip == clip)
+            if (loopSESources[i] == audioSource)
             {
                 // フェードアウトを開始
-                StartCoroutine(FadeOutAndStop(source, fadeOutDuration));
+                StartCoroutine(FadeOutAndStop(audioSource, fadeOutDuration));
+
                 loopSESources.RemoveAt(i); // リストから削除
             }
         }
@@ -172,7 +166,6 @@ public class SoundManager : MonoBehaviour
 
         audioSource.volume = 0f; // 完全に音を消す
         audioSource.Stop(); // 再生を停止
-        Destroy(audioSource.gameObject); // 一時オブジェクトを削除
     }
 
 }

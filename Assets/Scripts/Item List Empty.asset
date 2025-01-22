@@ -75,6 +75,6 @@ MonoBehaviour:
     fieldItemPrefab: {fileID: 3026288673644787095, guid: f16829e5fda344a4d8b96c2abf04e525, type: 3}
   - name: "\u68AF\u5B50"
     type: 12
-    sprite: {fileID: 21300000, guid: 0eece9a8399e13f4497498cb6a2e42df, type: 3}
-    handItemPrefab: {fileID: 8714359054965482433, guid: 8553479dc43871f4d8c20f15a2df3a0a, type: 3}
-    fieldItemPrefab: {fileID: 5544532243876963928, guid: ff78531ae986e8c49b47101ab4fc8548, type: 3}
+    sprite: {fileID: 21300000, guid: 805af2d8112bed04aad58c7bdf87d531, type: 3}
+    handItemPrefab: {fileID: 7791491304440828609, guid: bfd697f75fab2ec43b10567273fbd58b, type: 3}
+    fieldItemPrefab: {fileID: 8884894150004348981, guid: 4927cffd480128e4ea1379915a87bdf3, type: 3}

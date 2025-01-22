@@ -27,10 +27,6 @@ public class ActiveStep : MonoBehaviour
         {
             targetObject.SetActive(trackedInstance != null && !trackedInstance.Equals(null));
         }
-        else
-        {
-            Debug.LogWarning("targetObject が設定されていません！");
-        }
     }
 
     // InstantiateされたPrefabを追跡するためのメソッド

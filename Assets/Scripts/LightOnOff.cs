@@ -6,6 +6,7 @@ public class LightOnOff : MonoBehaviour
 {
     [SerializeField] GameObject lightObj;
     [SerializeField] AudioClip audioClip;
+    [SerializeField] AudioSource source;
     public bool isTurn = false;
 
     public void OnLightWakeUp()
@@ -32,7 +33,7 @@ public class LightOnOff : MonoBehaviour
             {
                 lightObj.SetActive(true);
             }
-            SoundManager.instance.PlaySE(audioClip, transform.position, this.transform);
+            SoundManager.instance.PlaySE(audioClip, source);
             isTurn = !isTurn;
         }   
     }
