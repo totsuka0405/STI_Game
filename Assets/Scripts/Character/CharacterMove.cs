@@ -13,8 +13,9 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] Camera playerCamera;
     [SerializeField] Transform handTransform; // アイテムを表示する手の位置
     [SerializeField] Slider mouseSensitivitySlider;
-
+    [SerializeField] GameObject virtualMouse;
     [SerializeField] AudioClip footstepClip;          // 足音のクリップ
+    [SerializeField] AudioSource source;
 
     public float crouchScale = 0.5f; // しゃがんだときのスケール
     public float standScale = 1.0f; // 立ち上がったときのスケール
@@ -28,6 +29,14 @@ public class CharacterMove : MonoBehaviour
     public bool isGameStarted { get; set; }
     public bool isCursolLock { get; set; }
     bool isSit = false;
+    bool isDontSit = false;
+    bool isWalkSoundOn = false;
+    bool isLookItem = false;
+
+    float originalMouseSensitivity;
+
+    public bool isDontMove = false; // 3秒間移動しない状態か
+    private float timeSinceLastMove = 0f; // 最後に移動した時間をカウント
 
     void Awake()
     {
@@ -43,7 +52,8 @@ public class CharacterMove : MonoBehaviour
         targetScale = standScale; // 初期状態は立っている
         itemBox = ItemBox.instance;
         isCursolLock = true;
-        if(itemBox == null)
+
+        if (itemBox == null)
         {
             Debug.LogError("ItemBox instance not found.");
         }
@@ -64,24 +74,39 @@ public class CharacterMove : MonoBehaviour
                 {
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
+                    virtualMouse.transform.position = Vector3.zero;
+                    virtualMouse.SetActive(false);
                 }
                 else
                 {
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
+                    virtualMouse.SetActive(true);
                 }
                 View();
                 ItemChange();
-                if (!GameManager.instance.isFirstEarthDontDie)
+                CheckItemRaycast();
+                if (!isDontSit)
                 {
                     Crouch();
                 }
                 ItemDrop();
+
+                // 3秒間移動がなかった場合にフラグを更新
+                if (timeSinceLastMove > 3f)
+                {
+                    isDontMove = true;
+                }
+                else
+                {
+                    isDontMove = false;
+                }
             }
             else
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                virtualMouse.SetActive(true);
 
             }
             
@@ -100,29 +125,76 @@ public class CharacterMove : MonoBehaviour
     /// </summary>
     void Moves()
     {
-        // プレイヤーの移動
-        float moveHorizontal = Input.GetAxisRaw("Horizontal");
-        float moveVertical = Input.GetAxisRaw("Vertical");
+        float moveHorizontal = 0f;
+        float moveVertical = 0f;
 
+        if (Input.GetKey(KeyCode.A)) moveHorizontal = -1f;
+        else if (Input.GetKey(KeyCode.D)) moveHorizontal = 1f;
+
+        if (Input.GetKey(KeyCode.W)) moveVertical = 1f;
+        else if (Input.GetKey(KeyCode.S)) moveVertical = -1f;
+
+        if(Gamepad.current != null)
+        {
+            if (Mathf.Abs(Gamepad.current.leftStick.x.ReadValue()) > 0.1f)
+                moveHorizontal = Gamepad.current.leftStick.x.ReadValue();
+
+            if (Mathf.Abs(Gamepad.current.leftStick.y.ReadValue()) > 0.1f)
+                moveVertical = Gamepad.current.leftStick.y.ReadValue();
+        }
+        
+
+        // スピード設定
         float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : moveSpeed;
 
+        // 移動方向
         Vector3 moveDirection = new Vector3(moveHorizontal, 0f, moveVertical).normalized;
         Vector3 moveVelocity = transform.TransformDirection(moveDirection) * currentSpeed;
 
-        if (moveDirection.magnitude > 0)
+        bool isMoving = moveDirection.magnitude > 0;
+
+        // プレイヤーの移動状態を反映
+        if (isMoving)
         {
             rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
+            timeSinceLastMove = 0f; // 移動したのでリセット
         }
         else
         {
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            timeSinceLastMove += Time.fixedDeltaTime; // 動かない時間を加算
         }
 
-        // 入力を行っていない場合、回転の力と移動の力を0にする
-        if (moveHorizontal == 0 && moveVertical == 0)
+        // 回転速度のリセット
+        if (!isMoving)
         {
             rb.angularVelocity = Vector3.zero;
         }
+
+        // 移動音をオン/オフ
+        if (!isMoving)
+        {
+            MoveSoundOfff();
+        }
+        else
+        {
+            MoveSoundOn();
+        }
+    }
+
+    void MoveSoundOn()
+    {
+        if (isWalkSoundOn)
+        {
+            SoundManager.instance.PlayLoopSE(footstepClip, source);
+            isWalkSoundOn = false;
+        }
+    }
+
+    void MoveSoundOfff()
+    {
+        SoundManager.instance.StopLoopSE(source);
+        isWalkSoundOn = true;
     }
 
     void OnMouseSensitivityChanged(float value)
@@ -133,9 +205,15 @@ public class CharacterMove : MonoBehaviour
     void View()
     {
         // プレイヤーの視点操作
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity + Input.GetAxis("Joystick Look Horizontal") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity + Input.GetAxis("Joystick Look Vertical") * mouseSensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
+        // コントローラーのスティックによる視点操作
+        if (Gamepad.current != null)
+        {
+            mouseX += Gamepad.current.rightStick.x.ReadValue() * mouseSensitivity;
+            mouseY += Gamepad.current.rightStick.y.ReadValue() * mouseSensitivity;
+        }
         verticalLookRotation += mouseY;
         verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
 
@@ -187,7 +265,7 @@ public class CharacterMove : MonoBehaviour
 
     void ItemDrop()
     {
-        if(Input.GetKeyDown(KeyCode.G))
+        if(Input.GetKeyDown(KeyCode.G) || Gamepad.current != null && Gamepad.current.buttonNorth.wasPressedThisFrame)
         {
             ItemBox.instance.RemoveSelectedItem();
         }
@@ -220,7 +298,7 @@ public class CharacterMove : MonoBehaviour
     void Crouch()
     {
         /// 左コントロールキーが押されたらしゃがみ・立ち状態を切り替える
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Gamepad.current != null && Gamepad.current.leftStickButton.wasPressedThisFrame)
         {
             if (isSit)
             {
@@ -241,4 +319,54 @@ public class CharacterMove : MonoBehaviour
 
     }
 
+    void CheckItemRaycast()
+    {
+        Ray ray = playerCamera.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2)); // 画面中央からレイを飛ばす
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1.3f)) // レイが当たる距離を8fに設定
+        {
+            if (hit.collider.CompareTag("Item"))
+            {
+                if (!isLookItem) // アイテムを初めて見たとき
+                {
+                    isLookItem = true;
+                    originalMouseSensitivity = mouseSensitivity; // 現在の感度を元の感度として保存
+                    mouseSensitivity = originalMouseSensitivity / 20f; // アイテムを見たときに感度を4分の1に設定
+                }
+            }
+            else
+            {
+                if (isLookItem) // アイテムから外れた場合
+                {
+                    isLookItem = false;
+                    mouseSensitivity = originalMouseSensitivity; // 元の感度に戻す
+                }
+            }
+        }
+        else
+        {
+            if (isLookItem) // アイテムが視界外になった場合
+            {
+                isLookItem = false;
+                mouseSensitivity = originalMouseSensitivity; // 元の感度に戻す
+            }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("DontSitPos"))
+        {
+           isDontSit = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("DontSitPos"))
+        {
+            isDontSit = false;
+        }
+    }
 }

@@ -8,6 +8,7 @@ public class OpenCloseAnim : MonoBehaviour
     [SerializeField] private AnimationClip openAnimation;  // 開くアニメーション
     [SerializeField] private AnimationClip closeAnimation; // 閉じるアニメーション
     [SerializeField] AudioClip openSE;
+    [SerializeField] AudioSource source;
 
     private bool isOpen = false;
     private bool isAnimating = false;
@@ -39,7 +40,7 @@ public class OpenCloseAnim : MonoBehaviour
 
         // アニメーションを再生
         animations.Play(animationClip.name);
-        SoundManager.instance.PlaySE(openSE, transform.position, this.transform);
+        SoundManager.instance.PlaySE(openSE, source);
         // アニメーションの長さを取得
         float animationDuration = animationClip.length;
 

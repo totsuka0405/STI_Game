@@ -4,7 +4,6 @@ using UnityEngine;
 public class PickupObj : MonoBehaviour
 {
     [SerializeField] Item.ItemType itemType;
-    [SerializeField] AudioClip clip;
     Item item;
     
     private void Start()
@@ -75,7 +74,7 @@ public class PickupObj : MonoBehaviour
                 break;
 
         }
-        SoundManager.instance.PlaySE(clip, transform.position, this.transform);
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+        Debug.Log("a");
     }
 }

@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 12
-  clip: {fileID: 0}
 --- !u!114 &6710694838925069210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: "\u8E0F\u307F\u53F0"
   additionalInfo: "\u62FE\u3046"
+  isInfoActive: 1
 --- !u!65 &7018288139985232502
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -152,7 +152,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

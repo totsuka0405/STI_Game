@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -7,6 +8,8 @@ using UnityEngine.InputSystem;
 public class BousaiBook : MonoBehaviour
 {
     [SerializeField] GameObject[] bousaiPanels;
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip clip;
     int panelindex = 0;
 
     private void Start()
@@ -18,7 +21,7 @@ public class BousaiBook : MonoBehaviour
     {
         if (GameManager.instance.isHandBousaiBook)
         {
-            if (Input.GetMouseButtonDown(1) || (Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame))
+            if (Input.GetMouseButtonDown(1) || (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame))
             {
                 OnNext();
             }
@@ -53,5 +56,7 @@ public class BousaiBook : MonoBehaviour
             }
             panelindex = 0;
         }
+
+        SoundManager.instance.PlaySE(clip, source);
     }
 }

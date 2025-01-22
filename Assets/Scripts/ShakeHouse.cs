@@ -20,6 +20,7 @@ public class ShakeHouse : MonoBehaviour
     [SerializeField] float shakeFrequency = 20f; // 振動の周波数
     [SerializeField] float shakeAmplitude = 3.0f; // 振動の振幅
     [SerializeField] AudioClip shakeSound;
+    [SerializeField] AudioSource shakeSource;
 
     private Rigidbody rb;
     private bool isShaking = false;
@@ -55,7 +56,7 @@ public class ShakeHouse : MonoBehaviour
             else
             {
                 shakeMagnitude = Mathf.Lerp(currentMaxShakeMagnitude, 0, (elapsed - 2 * halfDuration) / halfDuration);
-                SoundManager.instance.StopLoopSEWithFadeOut(shakeSound, 4);
+                SoundManager.instance.StopLoopSEWithFadeOut(shakeSource, 8);
             }
 
             float shakeOffsetX = Mathf.Sin(Time.time * shakeFrequency * 1.0f) * shakeMagnitude * shakeAmplitude;
@@ -90,7 +91,7 @@ public class ShakeHouse : MonoBehaviour
             isShaking = true;
             shakeTimeRemaining = earthquakeEvents[currentEventIndex].duration;
             currentMaxShakeMagnitude = earthquakeEvents[currentEventIndex].maxMagnitude;
-            SoundManager.instance.PlayLoopSEWithFadeIn(shakeSound, this.position, 8);
+            SoundManager.instance.PlayLoopSEWithFadeIn(shakeSound,shakeSource, 8);
         }
     }
 

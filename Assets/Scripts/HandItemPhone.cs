@@ -5,6 +5,7 @@ using UnityEngine;
 public class HandItemPhone : MonoBehaviour
 {
     [SerializeField] AudioClip clip;
+    [SerializeField] AudioSource source;
     bool isCallEventEnd = false;
      
     void Start()
@@ -23,7 +24,7 @@ public class HandItemPhone : MonoBehaviour
         if(GameManager.instance.isCallPhone && !isCallEventEnd)
         {
             isCallEventEnd = true;
-            SoundManager.instance.PlaySE(clip, transform.position, this.transform);
+            SoundManager.instance.PlaySE(clip, source);
         }
     }
 
