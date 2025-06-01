@@ -31,7 +31,7 @@
 
 ## 🧭 ゲームの流れ
 
-![ゲームフロー](./images/gameflow.png)
+![ゲームフロー](./readme_images/gameflow.png)
 
 - **1周目**はゲーム機の探索が目的
 - 途中で地震が発生 → 火災等の**二次災害**
@@ -78,9 +78,9 @@
 
 | シーン | 説明 |
 |-------|------|
-| ![室内探索](./images/screenshot1.png) | ゲーム機を探して家中を探索する序盤 |
-| ![日中のリビング](./images/screenshot2.png) | モデル作成された室内（明るい時間） |
-| ![火災発生時](./images/screenshot3.png) | 火災中に机の下へ避難（緊急時） |
+| ![リビングの様子](./readme_images/screenshot1.png) | ゲーム機を探して家中を探索する序盤 |
+| ![日中のリビング](./readme_images/screenshot2.png) | モデル作成された室内（明るい時間） |
+| ![火災時に机の下へ避難](./readme_images/screenshot3.png) | 火災中に机の下へ避難（緊急時） |
 
 ---
 
