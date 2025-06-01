@@ -14,7 +14,7 @@
 
 | 項目 | 内容 |
 |------|------|
-| タイトル | 隠遊（In-Yuu） |
+| タイトル | 隠遊 |
 | ジャンル | 理不尽災害脱出ゲーム |
 | プレイ人数 | 1人 |
 | プレイ時間目安 | 約3〜5分（マルチエンディング・複数回プレイ想定） |
@@ -97,6 +97,13 @@
 - `EndPanels.cs` / `EndVideo.cs`：エンディング映像と結果表示
 - `SelfSpeak.cs`, `Memo.cs`, `BousaiBook.cs`：防災情報提示
 - `BrightnessController.cs`：PostProcessによる明度調整
+
+---
+
+## 🎥 ゲームプレイ動画（約1分）
+
+[![隠遊プレイ動画](https://img.youtube.com/vi/WIWXcXGvneE/0.jpg)](https://youtu.be/WIWXcXGvneE)  
+> ※画像クリックでYouTubeが開きます
 
 ---
 
