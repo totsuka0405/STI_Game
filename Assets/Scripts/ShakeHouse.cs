@@ -98,7 +98,7 @@ public class ShakeHouse : MonoBehaviour
     private void StopShake()
     {
         isShaking = false;
-        rb.velocity = Vector3.zero; // 移動速度をリセット
+        rb.linearVelocity = Vector3.zero; // 移動速度をリセット
         rb.angularVelocity = Vector3.zero; // 回転速度をリセット
     }
 }
