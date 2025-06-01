@@ -100,6 +100,13 @@
 
 ---
 
+## 🎥 ゲームプレイ動画（約1分）
+
+[![隠遊プレイ動画](https://img.youtube.com/vi/WIWXcXGvneE/0.jpg)](https://youtu.be/WIWXcXGvneE)  
+> ※画像クリックでYouTubeが開きます
+
+---
+
 ## 📸 スクリーンショット
 
 | シーン | 説明 |
