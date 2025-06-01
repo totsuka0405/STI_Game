@@ -1,44 +1,104 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class ShakeHouse : MonoBehaviour
 {
-    public float shakeDuration = 2f;       // 揺れの継続時間
-    public float shakeMagnitude = 0.1f;    // 揺れの強度
-    public float dampingSpeed = 1.0f;      // 揺れの減衰スピード
+    public class EarthquakeEvent
+    {
+        public float duration;
+        public float maxMagnitude;
 
-    private Vector3 initialPosition;
+        public EarthquakeEvent(float duration, float maxMagnitude)
+        {
+            this.duration = duration;
+            this.maxMagnitude = maxMagnitude;
+        }
+    }
+
+    [SerializeField] float dampingSpeed = 1.0f; // 揺れの減衰スピード
+    [SerializeField] float shakeFrequency = 20f; // 振動の周波数
+    [SerializeField] float shakeAmplitude = 3.0f; // 振動の振幅
+    [SerializeField] AudioClip shakeSound;
+    [SerializeField] AudioSource shakeSource;
+
+    private Rigidbody rb;
     private bool isShaking = false;
     private float shakeTimeRemaining;
-    private float shakeOffsetX;
+    private float currentMaxShakeMagnitude;
+    private int currentEventIndex = 0;
+    private List<EarthquakeEvent> earthquakeEvents = new List<EarthquakeEvent>();
+    private Vector3 position;
 
     void Start()
     {
-        initialPosition = transform.position;
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
     }
 
     void Update()
     {
-        // 揺れを再現
         if (isShaking && shakeTimeRemaining > 0)
         {
-            // 左右に揺らす
-            shakeOffsetX = Mathf.Sin(Time.time * 20f) * shakeMagnitude;
+            float halfDuration = earthquakeEvents[currentEventIndex].duration / 3f;
+            float elapsed = earthquakeEvents[currentEventIndex].duration - shakeTimeRemaining;
+            float shakeMagnitude;
 
-            Vector3 shakeOffset = new Vector3(shakeOffsetX, 0f, 0f);
-            transform.position = initialPosition + shakeOffset;
+            if (elapsed <= halfDuration)
+            {
+                shakeMagnitude = Mathf.Lerp(0, currentMaxShakeMagnitude, elapsed / halfDuration);
+            }
+            else if (elapsed <= 2 * halfDuration)
+            {
+                shakeMagnitude = currentMaxShakeMagnitude;
+            }
+            else
+            {
+                shakeMagnitude = Mathf.Lerp(currentMaxShakeMagnitude, 0, (elapsed - 2 * halfDuration) / halfDuration);
+                SoundManager.instance.StopLoopSEWithFadeOut(shakeSource, 8);
+            }
+
+            float shakeOffsetX = Mathf.Sin(Time.time * shakeFrequency * 1.0f) * shakeMagnitude * shakeAmplitude;
+            float shakeOffsetZ = Mathf.Cos(Time.time * shakeFrequency * 0.5f) * shakeMagnitude * shakeAmplitude;
+            Vector3 shakeForce = new Vector3(shakeOffsetX, 0f, shakeOffsetZ);
+
+            rb.AddForce(shakeForce * Time.deltaTime, ForceMode.Impulse);
+
             shakeTimeRemaining -= Time.deltaTime * dampingSpeed;
         }
-        else if (shakeTimeRemaining <= 0)
+        else if (shakeTimeRemaining <= 0 && isShaking)
         {
-            isShaking = false;
-            transform.position = initialPosition;  // 揺れが終了したら元の位置に戻す
+            StopShake(); // Shake停止処理を呼び出す
+
+            currentEventIndex++;
+            if (currentEventIndex < earthquakeEvents.Count)
+            {
+                StartShake();
+            }
         }
     }
 
-    // 揺れを開始するメソッド
+    public void AddEarthquakeEvent(float duration, float maxMagnitude)
+    {
+        earthquakeEvents.Add(new EarthquakeEvent(duration, maxMagnitude));
+    }
+
     public void StartShake()
     {
-        isShaking = true;
-        shakeTimeRemaining = shakeDuration;
+        if (currentEventIndex < earthquakeEvents.Count)
+        {
+            isShaking = true;
+            shakeTimeRemaining = earthquakeEvents[currentEventIndex].duration;
+            currentMaxShakeMagnitude = earthquakeEvents[currentEventIndex].maxMagnitude;
+            SoundManager.instance.PlayLoopSEWithFadeIn(shakeSound,shakeSource, 8);
+        }
+    }
+
+    private void StopShake()
+    {
+        isShaking = false;
+        rb.velocity = Vector3.zero; // 移動速度をリセット
+        rb.angularVelocity = Vector3.zero; // 回転速度をリセット
     }
 }

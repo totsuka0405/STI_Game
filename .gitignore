@@ -10,6 +10,17 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+# Ignore the store assets directory
+[Aa]ssets/StoreAssets/
+[Aa]ssets/StoreAssets.meta
+[Aa]ssets/Textures/
+[Aa]ssets/Textures.meta
+
+
+# TextMesh Pro files
+[Aa]ssets/TextMesh*Pro/
+[Aa]ssets/TextMesh*Pro.meta
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/

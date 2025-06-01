@@ -5,6 +5,21 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - Door
+  - cap
+  - Fire
+  - ClearPos
+  - memo
+  - Kagu
+  - LightSwitch
+  - FirstEarthEventPos
+  - Breaker
+  - Bag
+  - Floor
+  - Step
+  - stepEffect
+  - StepEfect
+  - DontSitPos
   layers:
   - Default
   - TransparentFX
@@ -12,7 +27,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - IgnorePlayer
   - 
   - 
   - 
