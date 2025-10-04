@@ -18,7 +18,7 @@
 | ジャンル | 理不尽災害脱出ゲーム |
 | プレイ人数 | 1人 |
 | プレイ時間目安 | 約3〜5分（マルチエンディング・複数回プレイ想定） |
-| 開発環境 | Unity 6000.0.46f1 / C# / GitHub |
+| 開発環境 | Unity 6000.2.6f2 / C# / GitHub |
 | 対応ハード | PC（マウス＆キーボード / ゲームパッド） |
 | Web版 | [UnityRoomにて公開中](https://unityroom.com/games/kakureasobi) |
 
